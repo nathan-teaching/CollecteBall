@@ -10,13 +10,12 @@ En utilisant une méthode de développement agile, votre équipe, constitué de 
 
 ## 1. Dépot git
 
-Créer une organisation sur Github et ajouter tous les membres du groupe avec le rôle d’administrateur. 
+- Créer une organisation sur Github et ajouter tous les membres du groupe avec le rôle d’administrateur. 
 
-Chaque groupe travaillera sur un _fork_ du dépôt Git suivant:
+- Chaque groupe travaillera sur un _fork_ du dépôt Git suivant : [https://github.com/nathan-teaching/TennisBallCollector](https://github.com/nathan-teaching/TennisBallCollector)
 
-[https://github.com/nathan-teaching/TennisBallCollector](https://github.com/nathan-teaching/TennisBallCollector)
+- Réaliser dans un premier temps un _fork_ de ce dépôt associé à votre organisation, chaque membre du groupe travaillera ensuite sur son propre _fork_ associé à son compte personnel.
 
-Réaliser dans un premier temps un _fork_ de ce dépôt associé à votre organisation, chaque membre du groupe travaillera ensuite sur son propre _fork_ associé à son compte personnel.
 Il est important de parcourir tout le dépôt et de lire tous les *README* afin de bien comprendre sa structure. Compléter le *README* principal avec les membres du groupe, et plus tard avec le lien vers la gestion de projet sous *Taiga*. 
 
 La partie *Lancer la simulation* devra être à jour à tout moment du projet.
