@@ -7,7 +7,14 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ### Dépendences
 
-###### A compléter avec la/les dépendences.
+- Import sam robot model :
+
+```bash
+cd ~/ros2_ws/src
+git clone https://github.com/ros-planning/navigation2_tutorials.git
+cd navigation2_tutorials/
+rm -r nav2_*
+```
 
 
 ### Démarrer la simulation
@@ -53,3 +60,11 @@ Le dossier `docs` contient tous les documents utiles au projet:
 ### Rapports
 
 Le dossier `reports` doit être rempli avec les rapports d'[objectifs](../reports/GoalsTemplate.md) et de [rétrospectives](../reports/DebriefTemplate.md) en suivant les deux templates mis à disposition. Ces deux rapports doivent être rédigés respectivement au début et à la fin de chaque sprint.
+
+### Package `bot_spawn`
+
+Le dossier `bot_spawn` est un package ROS permettant de lancer un model de robot sur le terrain.
+
+```bash
+ros2 launch bot_spawn spawner.launch.py 
+```
