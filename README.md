@@ -22,12 +22,14 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ### Membres
 
-###### A compléter avec les membres du groupe.
-
+Thomas TACHERON
+Jonas SOUEIDAN
+Rémi POREE
+Simon GERVAISE
 
 ### Gestion de projet
 
-###### A compléter avec le lien vers votre [Taiga](https://taiga.io).
+###### A compléter avec le lien vers votre [Taiga](https://tree.taiga.io/project/thomastacheron-collecteballe/timeline).
 
 
 
