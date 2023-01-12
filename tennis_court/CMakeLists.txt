@@ -24,6 +24,8 @@ find_package(gazebo_ros REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Test REQUIRED)
@@ -31,6 +33,7 @@ find_package(Protobuf REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
+
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BallManagerStats.msg"
@@ -51,6 +54,15 @@ target_link_libraries(gui_tennis_court_overlay ${GAZEBO_LIBRARIES}
   ${PROTOBUF_LIBRARIES}
   ${Qt5Test_LIBRARIES})
 ament_export_libraries(gui_tennis_court_overlay)
+
+
+add_executable(sub_cam src/subscriber_camera.cpp)
+ament_target_dependencies(sub_cam rclcpp sensor_msgs)
+target_link_libraries(sub_cam "${cpp_typesupport_target}")
+target_include_directories(sub_cam PUBLIC
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -86,6 +98,9 @@ install(PROGRAMS
     scripts/ball_manager.py
     DESTINATION lib/${PROJECT_NAME}/
 )
+
+install(TARGETS sub_cam
+DESTINATION lib/${PROJECT_NAME})
 
 set(
   AMENT_CMAKE_ENVIRONMENT_HOOKS_DESC_tennis_court
