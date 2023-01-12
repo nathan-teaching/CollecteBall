@@ -7,10 +7,10 @@ Listes attentes fonctionnelles:
 -Robot se déplace comme une voiture de Dublins
 
 
--Le Robot possède un système se ramassage de balle
+-Le Robot possède un système de ramassage de balle
 
 
--Le Robot utilise la caméra zénithale pour se déplacer vers la balle a récuperer
+-Le Robot utilise la caméra zénithale pour sa position et détecter les balles
 
 
 
