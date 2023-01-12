@@ -14,7 +14,7 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ###### A compléter avec la/les commande(s) à lancer.
 ```bash
-# TODO
+ros2 launch Gillou display.launch.py
 ```
 
 
@@ -22,12 +22,12 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ### Membres
 
-###### A compléter avec les membres du groupe.
+Gace Hugo, Langlard Thibault, Potin Laurent, Reubrecht Hugo, Wanctin Hugo
 
 
 ### Gestion de projet
 
-###### A compléter avec le lien vers votre [Taiga](https://taiga.io).
+Lien vers le Taiga : https://tree.taiga.io/project/laurent_p-equipe-tennis/timeline
 
 
 
