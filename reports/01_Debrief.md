@@ -19,6 +19,8 @@ Demandes clients :
 
 -definir masse (entre 10-15kg), le rendre facilement transportable
 
+-definir taille
+
 -déterminer vitesse (ne pas être dangeureux)
 
 -matériaux non polluants (biodégradables)
