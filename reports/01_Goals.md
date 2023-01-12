@@ -12,7 +12,7 @@ Listes attentes fonctionnelles:
 
 -Le Robot utilise la caméra zénithale pour se déplacer vers la balle a récuperer
 
--Le Robot utilise un Lidar pour détecter les murs
+
 
 ## Tâches à réaliser
 Listes des tâches:
