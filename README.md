@@ -27,7 +27,7 @@ Gace Hugo, Langlard Thibault, Potin Laurent, Reubrecht Hugo, Wanctin Hugo
 
 ### Gestion de projet
 
-###### A compléter avec le lien vers votre [Taiga](https://taiga.io).
+Lien vers le Taiga : https://tree.taiga.io/project/laurent_p-equipe-tennis/timeline
 
 
 
