@@ -55,15 +55,6 @@ target_link_libraries(gui_tennis_court_overlay ${GAZEBO_LIBRARIES}
   ${Qt5Test_LIBRARIES})
 ament_export_libraries(gui_tennis_court_overlay)
 
-
-add_executable(sub_cam src/subscriber_camera.cpp)
-ament_target_dependencies(sub_cam rclcpp sensor_msgs)
-target_link_libraries(sub_cam "${cpp_typesupport_target}")
-target_include_directories(sub_cam PUBLIC
-$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-$<INSTALL_INTERFACE:include>)
-
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
@@ -99,8 +90,12 @@ install(PROGRAMS
     DESTINATION lib/${PROJECT_NAME}/
 )
 
-install(TARGETS sub_cam
-DESTINATION lib/${PROJECT_NAME})
+
+
+install(PROGRAMS
+    scripts/detec_robot.py
+    DESTINATION lib/${PROJECT_NAME}/
+)
 
 set(
   AMENT_CMAKE_ENVIRONMENT_HOOKS_DESC_tennis_court

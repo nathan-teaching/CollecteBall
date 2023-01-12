@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/media/antoine/Data/ENSTA/Troisieme_annee/IS/ros2_ws/install/enstabot_track/include/**",
+        "/opt/ros/foxy/include/**",
+        "/media/antoine/Data/ENSTA/Troisieme_annee/IS/ros2_ws/src/enstabot_track_foxy/enstabot_track/include/**",
+        "/media/antoine/Data/ENSTA/Troisieme_annee/IS/ros2_ws/src/sam_bot_description/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
