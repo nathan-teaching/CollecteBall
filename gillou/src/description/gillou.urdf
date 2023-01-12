@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="Gillou_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="gillou_bot" xmlns:xacro="http://ros.org/wiki/xacro">
 
 
 <!-- Define robot constants -->
