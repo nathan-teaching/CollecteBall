@@ -1,3 +1,4 @@
+[![tennis-court-foxy](https://github.com/nathan-teaching/CollecteBalle/actions/workflows/tennis_court-foxy.yaml/badge.svg)](https://github.com/nathan-teaching/CollecteBalle/actions/workflows/tennis_court-foxy.yaml)
 # Tennis Ball Collector
 
 Ceci est un template de dépôt Git pour le cours d'ingénierie système et modélisation robotique à l'ENSTA Bretagne en 2023.
