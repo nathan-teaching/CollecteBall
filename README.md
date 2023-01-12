@@ -23,8 +23,11 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 ### Membres
 
 Thomas TACHERON
+
 Jonas SOUEIDAN
+
 Rémi POREE
+
 Simon GERVAISE
 
 ### Gestion de projet
