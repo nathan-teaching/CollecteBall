@@ -10,8 +10,8 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
-    pkg_share = launch_ros.substitutions.FindPackageShare(package='Gillou').find('Gillou')
-    default_model_path = os.path.join(pkg_share, 'src/description/Gillou.urdf')
+    pkg_share = launch_ros.substitutions.FindPackageShare(package='gillou').find('gillou')
+    default_model_path = os.path.join(pkg_share, 'src/description/gillou.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
 
     tennis_court_share = get_package_share_directory("tennis_court")
@@ -58,7 +58,7 @@ def generate_launch_description():
     spawn_entity = launch_ros.actions.Node(
     package='gazebo_ros',
     executable='spawn_entity.py',
-    arguments=['-entity', 'Gillou_bot', '-topic', 'robot_description'],
+    arguments=['-entity', 'gillou_bot', '-topic', 'robot_description'],
     output='screen'
     )
 
