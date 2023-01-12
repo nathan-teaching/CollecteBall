@@ -14,7 +14,7 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ###### A compléter avec la/les commande(s) à lancer.
 ```bash
-# TODO
+ros2 launch Gillou display.launch.py
 ```
 
 
