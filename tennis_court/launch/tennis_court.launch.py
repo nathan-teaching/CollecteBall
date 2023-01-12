@@ -38,7 +38,7 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration("gui"))
     )
 
-    static_tf_node = Node(
+    static_tf_node = Node( # TF from map to zenith_camera_link (camera's fram)
         package="tf2_ros",
         arguments=["0", "0", "8", "3.14159", "1.57079", "3.14159", "map", "zenith_camera_link"],
         **{executable: "static_transform_publisher"}
@@ -65,10 +65,10 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        DeclareLaunchArgument(name="gui", default_value="true"),
-        DeclareLaunchArgument(name="paused", default_value="false"),
-        DeclareLaunchArgument(name="rviz", default_value="false"),
-        DeclareLaunchArgument(name="manager", default_value="true"),
+        DeclareLaunchArgument(name="gui", default_value="true"), # if True run Gazebo
+        DeclareLaunchArgument(name="paused", default_value="false"), # if True run simulation in Pause mode
+        DeclareLaunchArgument(name="rviz", default_value="false"), # if True run Rviz
+        DeclareLaunchArgument(name="manager", default_value="true"), # if True run ball_manager.py
         gzserver_launch,
         gzclient_launch,
         static_tf_node,
