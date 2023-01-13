@@ -72,3 +72,7 @@ Le dossier `docs` contient tous les documents utiles au projet:
 ### Rapports
 
 Le dossier `reports` doit être rempli avec les rapports d'[objectifs](../reports/GoalsTemplate.md) et de [rétrospectives](../reports/DebriefTemplate.md) en suivant les deux templates mis à disposition. Ces deux rapports doivent être rédigés respectivement au début et à la fin de chaque sprint.
+
+### Carac_robot
+
+Le fichier Carac_robot reprends toutes les caractéristiques techniques du robot (taille, poids, matériaux...).
