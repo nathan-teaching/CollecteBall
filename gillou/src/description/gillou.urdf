@@ -56,6 +56,28 @@
     </inertial>
   </xacro:macro>
 
+<gazebo reference="drivewhl_r_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+  <gazebo reference="drivewhl_l_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 
 
   <!-- Robot Base -->
@@ -251,50 +273,6 @@
 </joint>
 
 <!-- Wheels -->
-<gazebo reference="drivewhl_r_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
-  <gazebo reference="drivewhl_l_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
-  <gazebo reference="drivewhl_bl_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
-  <gazebo reference="drivewhl_br_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
 
   <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
     <link name="${prefix}_link">
@@ -326,23 +304,13 @@
   </xacro:macro>
 
   <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
-  <xacro:wheel prefix="drivewhl_bl" x_reflect="1" y_reflect="1" />
   <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
-  <xacro:wheel prefix="drivewhl_br" x_reflect="1" y_reflect="-1" />
+  
 
  <!-- Caster Wheel -->
- <gazebo reference="front_caster_link">
-    <visual>  
-    <material>  
-      <ambient>0.1 0.1 0.1 1.0</ambient>  
-      <diffuse>0.1 0.1 0.1 1.0</diffuse>  
-      <specular>0.1 0.1 0.1 1.0</specular>  
-      <emissive>0.1 0.1 0.1 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
 
-  <link name="front_caster">
+
+  <link name="front_caster_l">
     <visual>
       <geometry>
         <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
@@ -361,11 +329,37 @@
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
 
-  <joint name="caster_joint" type="fixed">
+  <joint name="caster_joint_l" type="fixed">
     <parent link="base_link"/>
-    <child link="front_caster"/>
-    <origin xyz="${caster_xoff} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
+    <child link="front_caster_l"/>
+    <origin xyz="${caster_xoff} ${(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
   </joint>
+
+    <link name="front_caster_r">
+    <visual>
+      <geometry>
+        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+      </geometry>
+    </collision>
+
+    <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+  </link>
+
+    <joint name="caster_joint_r" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_caster_r"/>
+    <origin xyz="${caster_xoff} ${-(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
+  </joint>
+
 
 <link name="imu_link">
   <visual>
