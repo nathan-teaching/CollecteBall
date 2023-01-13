@@ -20,8 +20,6 @@ def generate_launch_description():
       PythonLaunchDescriptionSource(tennis_court_launch_file)
     )
 
-
-
     world_path=os.path.join(pkg_share, 'world/my_world.sdf'),
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
