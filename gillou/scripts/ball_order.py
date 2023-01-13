@@ -56,14 +56,68 @@ def oldest(ball):
     return ball[2]
 
 
-# TODO define a thin square with coordinates given and radius given and find if a ball is in or not
-def ball_in_traj(b, x_robot, y_robot, x_dest, y_dest, radius):
-    """
-    input: ball [x,y,time], robot coordinates, destination coordinates, radius to search
-    output: True if the ball is in the traj, False otherwise
-    """
-    pass
+def path_balls(lis_balls, ball_obj, x_robot, y_robot, radius):
+    # Careful ! lis_balls will be modified, therefore must not be the original one, rather a copy
+    """determines the path for a robot, given a destination ball, in order to grab as many balls as possible in the way
 
+    Args:
+        lis_balls (int[3][]): list of the balls that could be in the trajectory of the robot
+        ball_obj (int[3]): the destination ball that will be reached eventually
+        x_robot (int): x coordinate of the robot
+        y_robot (int): y coordinate of the robot
+        radius (float): opening of the way. The bigger it is, the more likely the robot is to find a ball to grab in the way.
+
+    Returns:
+        int[2][]: the list of the coordinates of the balls that can be grabbed in the way
+    """
+    path = [(ball_obj[0], ball_obj[1])]
+    for ball in lis_balls :
+        if ball_in_traj(ball, x_robot, y_robot, ball_obj[0], ball_obj[1], radius) :
+            lis_balls.remove(ball)
+            path = path_balls(lis_balls, ball, x_robot, y_robot, 0.75 * radius) + path_balls(lis_balls, ball_obj, ball[0], ball[1], 0.75 * radius)
+            break
+    return path
+
+
+def ball_in_traj(b, x_robot, y_robot, x_dest, y_dest, radius):
+    """checks wether a ball b is within a rectangle formed by the segment between robot and dist and with a width 2 * radius
+
+    Args:
+        b (int[3]): the coordinates and the order of the ball
+        x_robot (int): x coordinate of the robot
+        y_robot (int): y coordinate of the robot
+        x_dest (int): x coordinate of the objective ball
+        y_dest (int): y coordinate of the objective ball
+        radius (float): the semi-width of the rectangle
+
+    Returns:
+        bool: whether the ball is in the ractangle or not
+    """
+    complex_vect = np.array([x_dest - x_robot + j * (y_dest - x_dest)])
+    angle = np.angle(complex_vect)[0]
+    corners = [(x_robot + radius * np.sin(angle), y_robot - radius * np.cos(angle)), (x_robot - radius * np.sin(angle), y_robot + radius * np.cos(angle)),
+                (x_dest - radius * np.sin(angle), y_dest + radius * np.cos(angle)), (x_dest + radius * np.sin(angle), y_dest - radius * np.cos(angle))] # 4 corners of the rectangle, turning clockwise
+    bottom_right, bottom_left, top_left, top_right = corners
+
+    coefs_first_vert_line = (0, 0)
+    coefs_first_vert_line[0] = (bottom_left[1] - top_left[1]) / (bottom_left[0] - top_left[0])
+    coefs_first_vert_line[1] = bottom_left[1] - coefs_first_line[0] * bottom_left[0]
+    coefs_second_vert_line = (0, 0)
+    coefs_second_vert_line[0] = (bottom_right[1] - top_right[1]) / (bottom_right[0] - top_right[0])
+    coefs_second_vert_line[1] = bottom_right[1] - coefs_first_line[0] * bottom_right[0]
+    coefs_first_horiz_line = (0, 0)
+    coefs_first_horiz_line[0] = (bottom_left[1] - bottom_right[1]) / (bottom_left[0] - bottom_right[0])
+    coefs_first_horiz_line[1] = bottom_left[1] - coefs_first_line[0] * bottom_left[0]
+    coefs_second_horiz_line = (0, 0)
+    coefs_second_horiz_line[0] = (top_right[1] - top_left[1]) / (top_right[0] - top_left[0])
+    coefs_second_horiz_line[1] = top_right[1] - coefs_first_line[0] * top_right[0]
+
+    if (ball[1] > coefs_first_vert_line[0] * ball[0] + coefs_first_vert_line[1] and ball[1] < coefs_second_vert_line[0] * ball[0] + coefs_second_vert_line[1])\
+    or (ball[1] < coefs_first_vert_line[0] * ball[0] + coefs_first_vert_line[1] and ball[1] > coefs_second_vert_line[0] * ball[0] + coefs_second_vert_line[1]):
+        if (ball[1] > coefs_first_horiz_line[0] * ball[0] + coefs_first_horiz_line[1] and ball[1] < coefs_second_horiz_line[0] * ball[0] + coefs_second_horiz_line[1])\
+        or (ball[1] < coefs_first_horiz_line[0] * ball[0] + coefs_first_horiz_line[1] and ball[1] > coefs_second_horiz_line[0] * ball[0] + coefs_second_horiz_line[1]):
+            return True 
+    return False
 
 def in_square(coords):
     """
