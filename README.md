@@ -9,7 +9,8 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 
 ###### A compléter avec la/les dépendences.
 Utiliser ROS2 foxy
-installer gazebo pour foxy
+
+Installer gazebo pour foxy
 ```bash
 sudo apt install ros-foxy-gazebo-ros-pkgs
 ```
