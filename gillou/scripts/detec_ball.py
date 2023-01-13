@@ -46,15 +46,14 @@ class MinimalSubscriber(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
     
     def timer_callback(self):
-        rospy.loginfo("coucou")
-        print("coucou")
+        # print("coucou")
         msg = Int16MultiArray()
         data = []
         for ball in self.lis_balls :
             data.append(ball[0][0])
             data.append(ball[0][1])
             data.append(ball[1])
-        print(data)
+        # print(data)
         msg.data = [int(data[i]) for i in range(len(data))]
         print(msg.data)
         self.publisher_.publish(msg)
@@ -63,9 +62,8 @@ class MinimalSubscriber(Node):
         current_frame = self.br.imgmsg_to_cv2(msg)
         current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
         self.update_lis_balls(det_lis_balls(current_frame))
-        print(self.lis_balls)
-
-        return current_frame
+        # print(self.lis_balls)
+    
     
     def update_lis_balls(self, new_lis):
         if len(self.lis_balls) < len(new_lis):
