@@ -8,12 +8,26 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 ### Dépendences
 
 ###### A compléter avec la/les dépendences.
+Utiliser ROS2 foxy
+installer gazebo pour foxy
+```bash
+sudo apt install ros-foxy-gazebo-ros-pkgs
+```
+
 
 
 ### Démarrer la simulation
 
 ###### A compléter avec la/les commande(s) à lancer.
 
+Pensez à sourcer votre ROS2 
+
+```bash
+colcon build --packages-select gillou tennis_court
+```
+```bash
+source install/setup.bash
+```
 ```bash
 ros2 launch gillou display.launch.py
 ```
