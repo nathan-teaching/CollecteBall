@@ -78,7 +78,7 @@ Le dossier `reports` doit être rempli avec les rapports d'[objectifs](../report
 -- Nom : Best Ball Catcher  
 
 --taille (en mm): 
-	corps 420*310*180 plaques épaisseur 6  
+	corps 420x310x180 plaques épaisseur 6  
 	roues r 100 w 40  
 	pelle L 200  
 
