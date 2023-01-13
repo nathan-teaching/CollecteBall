@@ -5,6 +5,7 @@ from rclpy.node import Node
 import cv2
 import numpy as np
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Vector3
 from cv_bridge import CvBridge
 
 class MinimalSubscriber(Node):
@@ -18,35 +19,39 @@ class MinimalSubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
         self.br = CvBridge()
+        self.position_robot = (0,0)
+        self.publisher_ = self.create_publisher(Vector3, 'position_robot', 10)
+        timer_period = 0.1  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+
+    def timer_callback(self):
+        msg = Vector3()
+        msg.x = float(self.position_robot[0])
+        msg.y = float(self.position_robot[1])
+        msg.z = 0.
+        self.publisher_.publish(msg)
 
     def listener_callback(self, msg):
         current_frame = self.br.imgmsg_to_cv2(msg)
         current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
-        # Display image
-        cv2.imshow("camera", current_frame)
-        #step = msg.step
-        #rows = msg.height
-        #image = msg.data
-        #print(step, rows)
-        #print(len(image))
-        #img1 = np.zeros((step, rows))
-        #for i in range(rows):
-        #    for j in range(rows):
-        #        #print(i, j)
-        #        img1[i,j] = image[step*i+j]
-        #print(img1)
-        #hsv = cv2.cvtColor(img1, cv2.COLOR_BGR2HSV)
-        ## on effectue un masque avec les valeurs ci-dessous recuperee sur internet
-        ## pour ne garder que les lignes jaunes
-        #lower = np.array([20, 70, 100], dtype=np.uint8)
-        #upper = np.array([30, 255, 255], dtype=np.uint8)
-        #seg0 = cv2.inRange(hsv, lower, upper
-        # on affiche l'image
-        cv2.waitKey(0)
-
-        sum = 0  # la somme des positions en x des pixels blancs
-        cnt = 0  # le nombre de pixels blancs
-        return current_frame
+        
+        hsv = cv2.cvtColor(current_frame, cv2.COLOR_RGB2HSV)
+        # on effectue un masque avec les valeurs ci-dessous recuperee sur internet
+        # pour ne garder que les lignes jaunes
+        lower = np.array([100, 60, 150], dtype=np.uint8)
+        upper = np.array([200, 90, 255], dtype=np.uint8)
+        seg0 = cv2.inRange(hsv, lower, upper)
+        pixel_blanc_x = []
+        pixel_blanc_y = []
+        for i in range(len(seg0)):
+            for j in range(len(seg0[0])):
+                if seg0[i,j] == 255:
+                    pixel_blanc_x.append(i)
+                    pixel_blanc_y.append(j)
+        pos_x = int(np.sum(pixel_blanc_x)/len(pixel_blanc_x))
+        pos_y = int(np.sum(pixel_blanc_y)/len(pixel_blanc_y))
+        self.position_robot = (pos_x, pos_y)
+    
 
 
 
