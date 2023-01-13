@@ -13,8 +13,9 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 ### Démarrer la simulation
 
 ###### A compléter avec la/les commande(s) à lancer.
+
 ```bash
-ros2 launch Gillou display.launch.py
+ros2 launch gillou display.launch.py
 ```
 
 
@@ -41,6 +42,9 @@ Le dossier `tennis_court` est un package ROS contenant le monde dans lequel le r
 Ce package ne doit pas être modifié.
 Consulter le [README](tennis_court/README.md) du package pour plus d'informations.
 
+### Package 'gillou'
+
+Le dossier 'gillou' est un package ROS contenant le robot. Lors du lancement de ce package celui-ci fait appelle au package 'tennis_court' pour générer le monde et place le robot sur le terrain.
 
 ### Documents
 
