@@ -8,13 +8,29 @@ Ceci est un template de dépôt Git pour le cours d'ingénierie système et mod�
 ### Dépendences
 
 ###### A compléter avec la/les dépendences.
+Utiliser ROS2 foxy
+
+Installer gazebo pour foxy
+```bash
+sudo apt install ros-foxy-gazebo-ros-pkgs
+```
+
 
 
 ### Démarrer la simulation
 
 ###### A compléter avec la/les commande(s) à lancer.
+
+Pensez à sourcer votre ROS2 
+
 ```bash
-ros2 launch Gillou display.launch.py
+colcon build --packages-select gillou tennis_court
+```
+```bash
+source install/setup.bash
+```
+```bash
+ros2 launch gillou display.launch.py
 ```
 
 
@@ -41,6 +57,9 @@ Le dossier `tennis_court` est un package ROS contenant le monde dans lequel le r
 Ce package ne doit pas être modifié.
 Consulter le [README](tennis_court/README.md) du package pour plus d'informations.
 
+### Package 'gillou'
+
+Le dossier 'gillou' est un package ROS contenant le robot. Lors du lancement de ce package celui-ci fait appelle au package 'tennis_court' pour générer le monde et place le robot sur le terrain.
 
 ### Documents
 
