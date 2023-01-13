@@ -35,7 +35,6 @@
       <mass value="${m}"/>
       <inertia ixx="${(m/12) * (h*h + d*d)}" ixy="0.0" ixz="0.0" iyy="${(m/12) * (w*w + d*d)}" iyz="0.0" izz="${(m/12) * (w*w + h*h)}"/>
     </inertial>
-
   </xacro:macro>
 
   <xacro:macro name="cylinder_inertia" params="m r h">
@@ -87,7 +86,6 @@
 
 <!-- Robot Footprint -->
   <link name="base_footprint"/>
-
   <joint name="base_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_footprint"/>
@@ -167,8 +165,6 @@
   <origin xyz="0.18 0 0.16" rpy="0 1.2 0"/>
       <parent link="base_link"/>
       <child link="first_hook_link"/>
-      
-      
 </joint>
 
 
@@ -195,8 +191,6 @@
   <origin xyz="0.15 0 0.20" rpy="0 -1.8 0"/>
       <parent link="first_hook_link"/>
       <child link="second_hook_link"/>
-      
-      
 </joint>
 
 
@@ -248,7 +242,7 @@
     </visual>
   </gazebo>
 
-  <gazebo reference="drivewhl_al_link">
+  <gazebo reference="drivewhl_bl_link">
     <visual>  
     <material>  
       <ambient>0.  0.  0. 1.0</ambient>  
@@ -259,7 +253,7 @@
     </visual>
   </gazebo>
 
-  <gazebo reference="drivewhl_ar_link">
+  <gazebo reference="drivewhl_br_link">
     <visual>  
     <material>  
       <ambient>0.  0.  0. 1.0</ambient>  
@@ -291,15 +285,13 @@
       <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
 
-    
-
     <joint name="${prefix}_joint" type="continuous">
       <parent link="base_link"/>
       <child link="${prefix}_link"/>
-      
       <origin xyz="${x_reflect*wheel_xoff} ${y_reflect*(base_width/2+wheel_ygap)} ${-wheel_zoff}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
     </joint>
+
   </xacro:macro>
 
   <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
@@ -318,6 +310,7 @@
     </material>  
     </visual>
   </gazebo>
+
   <link name="front_caster">
     <visual>
       <geometry>
@@ -336,12 +329,6 @@
 
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
-<!--partie rajoutée-->
-  <!--<gazebo reference="front_caster">-->
-  <!--  <material>Gazebo/Orange</material>-->
-  <!--  <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>-->
-  <!--  <selfCollide>True</selfCollide>-->
-  <!--<gazebo>-->
 
   <joint name="caster_joint" type="fixed">
     <parent link="base_link"/>
