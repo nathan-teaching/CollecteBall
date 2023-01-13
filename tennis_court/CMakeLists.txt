@@ -90,8 +90,6 @@ install(PROGRAMS
     DESTINATION lib/${PROJECT_NAME}/
 )
 
-
-
 set(
   AMENT_CMAKE_ENVIRONMENT_HOOKS_DESC_tennis_court
   "prepend-non-duplicate;LD_LIBRARY_PATH;${GAZEBO_PLUGIN_PATH}")
