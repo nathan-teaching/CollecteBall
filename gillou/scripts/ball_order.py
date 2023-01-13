@@ -1,10 +1,37 @@
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
 import numpy as np
+from std_msgs.msg import Int16MultiArray
+
+
+class MinimalSubscriber(Node):
+
+    def __init__(self):
+        super().__init__('minimal_subscriber')
+        self.subscription = self.create_subscription(
+            Int16MultiArray(),
+            "positions_balles",
+            self.listener_callback,
+            10)
+        self.subscription  # prevent unused variable warning
+
+    def listener_callback(self, msg):
+        lis_interm = []
+        for i in range(0, len(msg.data), 3):
+            lis_interm.append([msg.data[i], msg.data[i + 1], msg.data[i + 2]])
+        lis_balls = lis_interm
+        print(lis_balls)
+
+
 
 
 # TODO find the correct coordinates
 coords_zone = [[-100, -100], [100, 100]]
 coords_net = [[-100, 0], [100, 0]]
 net_sides = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
+lis_balls = []
 
 
 def min_distance(x, y, list_coords):
@@ -105,3 +132,21 @@ def goto(x_robot, y_robot, x_dest, y_dest):
         x_mid, y_mid = min_distance(x_robot, y_robot, coords_net)
         straight_line(x_robot, y_robot, x_mid, y_mid)
         straight_line(x_mid, y_mid, x_dest, y_dest)
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    minimal_subscriber = MinimalSubscriber()
+
+    rclpy.spin(minimal_subscriber)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()
