@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 import numpy as np
 from std_msgs.msg import Int16MultiArray
+from geometry_msgs.msg import Vector3
 
 
 class MinimalSubscriber(Node):
@@ -16,6 +17,9 @@ class MinimalSubscriber(Node):
             self.listener_callback,
             10)
         self.subscription  # prevent unused variable warning
+        self.subscription2 = self.create_subscription(Vector3, "position_robot", self.listener_pos_rob_callback, 10)
+        self.subscription2
+        self.position_robot = (0,0)
 
     def listener_callback(self, msg):
         lis_interm = []
@@ -23,8 +27,12 @@ class MinimalSubscriber(Node):
             lis_interm.append([msg.data[i], msg.data[i + 1], msg.data[i + 2]])
         lis_balls = lis_interm
         print(lis_balls)
-
-
+    
+    def listener_pos_rob_callback(self, msg):
+        pos_x = msg.x
+        pos_y = msg.y
+        self.position_robot = (pos_x, pos_y)
+        print(self.position_robot)
 
 
 # TODO find the correct coordinates
