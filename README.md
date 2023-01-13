@@ -73,6 +73,21 @@ Le dossier `docs` contient tous les documents utiles au projet:
 
 Le dossier `reports` doit être rempli avec les rapports d'[objectifs](../reports/GoalsTemplate.md) et de [rétrospectives](../reports/DebriefTemplate.md) en suivant les deux templates mis à disposition. Ces deux rapports doivent être rédigés respectivement au début et à la fin de chaque sprint.
 
-### Carac_robot
+## Caractéristiques du robot
 
-Le fichier Carac_robot reprends toutes les caractéristiques techniques du robot (taille, poids, matériaux...).
+-- Nom : Best Ball Catcher  
+
+--taille (en mm): 
+	corps 420x310x180 plaques épaisseur 6  
+	roues r 100 w 40  
+	pelle L 200  
+
+-- masse totale entre 10kg et 15kg  
+	corps 1.9kg  
+	roues 200g par roue  
+	pelle 1.5kg  
+
+--matériaux :  
+	roues pneus dentelés  
+	corps bambou  
+	pelle bambou  

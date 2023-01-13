@@ -24,6 +24,8 @@ find_package(gazebo_ros REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Test REQUIRED)
@@ -31,6 +33,7 @@ find_package(Protobuf REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
+
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BallManagerStats.msg"
@@ -84,6 +87,13 @@ install(DIRECTORY worlds
 
 install(PROGRAMS
     scripts/ball_manager.py
+    DESTINATION lib/${PROJECT_NAME}/
+)
+
+
+
+install(PROGRAMS
+    scripts/detec_robot.py
     DESTINATION lib/${PROJECT_NAME}/
 )
 
