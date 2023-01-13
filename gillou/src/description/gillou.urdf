@@ -154,6 +154,28 @@
     </visual>
   </gazebo>
 
+  <gazebo reference="drivewhl_al_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+  <gazebo reference="drivewhl_ar_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 
   <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
     <link name="${prefix}_link">
@@ -175,6 +197,8 @@
       <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
 
+    
+
     <joint name="${prefix}_joint" type="continuous">
       <parent link="base_link"/>
       <child link="${prefix}_link"/>
@@ -185,7 +209,9 @@
   </xacro:macro>
 
   <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel prefix="drivewhl_bl" x_reflect="1" y_reflect="1" />
   <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+  <xacro:wheel prefix="drivewhl_br" x_reflect="1" y_reflect="-1" />
 
  <!-- Caster Wheel -->
  <gazebo reference="front_caster_link">
