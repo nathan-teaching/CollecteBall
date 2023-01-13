@@ -7,6 +7,10 @@
 <xacro:property name="base_length" value="0.42"/>
 <xacro:property name="base_height" value="0.18"/>
 
+<xacro:property name="rot_joint_width" value="0.03"/>
+<xacro:property name="rot_joint_radius" value="0.02"/>
+
+
 <xacro:property name="arm_width" value="0.01"/>
 <xacro:property name="arm_length" value="0.40"/>
 <xacro:property name="arm_height" value="0.06"/>
@@ -162,8 +166,8 @@
   </link>
   
  <joint name="first_hook_joint" type="fixed">
-  <origin xyz="0.18 0 0.16" rpy="0 1.2 0"/>
-      <parent link="base_link"/>
+  <origin xyz="0.16 0.06 0" rpy="${-pi/2} 0 -1.2"/>
+      <parent link="rot_joint_link"/>
       <child link="first_hook_link"/>
 </joint>
 
@@ -217,6 +221,33 @@
   <parent link="second_hook_link"/>
   <child link="door_link"/>
   <origin xyz="0 0 -0.15" rpy="0 0.5 0"/>
+</joint>
+
+<!-- Robot Rot Joint -->
+<link name="rot_joint_link">
+    <visual>
+      <geometry>
+       <cylinder radius="${rot_joint_radius}" length="${rot_joint_width}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${rot_joint_radius}" length="${rot_joint_width}"/>
+      </geometry>
+    </collision>
+
+    <xacro:cylinder_inertia m="0.5" r="${rot_joint_radius}" h="${rot_joint_width}"/>
+  </link>
+  
+ <joint name="rot_joint_joint" type="fixed">
+  <origin xyz="0.02 0 0.11" rpy="${pi/2} 0 0"/>
+      <parent link="base_link"/>
+      <child link="rot_joint_link"/>
+      
+      
 </joint>
 
 <!-- Wheels -->
@@ -454,24 +485,6 @@
     <robot_base_frame>base_link</robot_base_frame>
   </plugin>
 </gazebo>
-
-
-
-
-  <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-       <cylinder radius="0.0508" length="0.055"/>
-    </geometry>
-  </collision>
-
-  <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-       <cylinder radius="0.0508" length="0.055"/>
-    </geometry>
-  </visual>
-</link>
 
 
 

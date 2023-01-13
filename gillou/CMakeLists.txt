@@ -39,9 +39,4 @@ if(BUILD_TESTING)
 endif()
 
 
-install(PROGRAMS
-    scripts/detec_ball.py
-    DESTINATION lib/${PROJECT_NAME}/
-)
-
 ament_package()
