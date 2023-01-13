@@ -20,6 +20,7 @@
       <mass value="${m}"/>
       <inertia ixx="${(m/12) * (h*h + d*d)}" ixy="0.0" ixz="0.0" iyy="${(m/12) * (w*w + d*d)}" iyz="0.0" izz="${(m/12) * (w*w + h*h)}"/>
     </inertial>
+
   </xacro:macro>
 
   <xacro:macro name="cylinder_inertia" params="m r h">
@@ -38,7 +39,19 @@
   </xacro:macro>
 
 
+
   <!-- Robot Base -->
+  <gazebo reference="base_link">
+    <visual>  
+    <material>  
+      <ambient> 0.827 0.431 0.439 1.0</ambient>  
+      <diffuse> 0.827 0.431 0.439 1.0</diffuse>  
+      <specular>0.827 0.431 0.439 1.0</specular>  
+      <emissive>0.827 0.431 0.439 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
   <link name="base_link">
     <visual>
       <geometry>
@@ -68,6 +81,29 @@
 
 
 <!-- Wheels -->
+<gazebo reference="drivewhl_r_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+  <gazebo reference="drivewhl_l_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+
   <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
     <link name="${prefix}_link">
       <visual>
@@ -101,6 +137,16 @@
   <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
 
  <!-- Caster Wheel -->
+ <gazebo reference="front_caster_link">
+    <visual>  
+    <material>  
+      <ambient>0.1 0.1 0.1 1.0</ambient>  
+      <diffuse>0.1 0.1 0.1 1.0</diffuse>  
+      <specular>0.1 0.1 0.1 1.0</specular>  
+      <emissive>0.1 0.1 0.1 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
   <link name="front_caster">
     <visual>
       <geometry>
@@ -118,8 +164,13 @@
     </collision>
 
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
-    
   </link>
+<!--partie rajoutée-->
+  <!--<gazebo reference="front_caster">-->
+  <!--  <material>Gazebo/Orange</material>-->
+  <!--  <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>-->
+  <!--  <selfCollide>True</selfCollide>-->
+  <!--<gazebo>-->
 
   <joint name="caster_joint" type="fixed">
     <parent link="base_link"/>
@@ -278,7 +329,7 @@
 <gazebo reference="lidar_link">
   <sensor name="lidar" type="ray">
     <always_on>true</always_on>
-    <visualize>true</visualize>
+    <visualize>false</visualize>
     <update_rate>5</update_rate>
     <ray>
       <scan>
