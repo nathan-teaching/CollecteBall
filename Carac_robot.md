@@ -1,6 +1,6 @@
 Caractésistiques Robot :
 
--- nom : 
+-- nom : Best Ball Catcher
 
 -- taille : 
 	corps 420*310*180
@@ -16,3 +16,6 @@ Caractésistiques Robot :
 	roue pneu dentelés
 	corps bambou
 	pelle bambou
+	
+	
+	rangement boite 500*500*300

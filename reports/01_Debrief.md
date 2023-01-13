@@ -3,28 +3,24 @@ PO: Reubrecht Hugo
 ## Bilan
 Pourcentage de tâches réalisées:  %
 ### Ce qui a fonctionné
-###### A compléter.
+- importation du robot sur le terrain  
+- node récupération image caméra zénithale  
 ### Ce qui n'a pas fonctionné
-###### A compléter.
+- changement de couleur  
+- ajout pelle robot  
+- détection balles caméra zénithale  
 ### Retour d'expérience du PO
-###### A compléter.
+difficulté à faire des taches simples   
 ### Conseils pour le prochain PO
-Bon courage !
-
-Demandes clients :
-
--proposer couleur
-
--proposer nom
-
--definir masse (entre 10-15kg), le rendre facilement transportable
-
--definir taille
-
--déterminer vitesse (ne pas être dangeureux)
-
--matériaux non polluants (biodégradables)
+Bon courage !  
+Demandes clients :  
+-proposer couleur  
+-proposer nom  
+-definir masse (entre 10-15kg), le rendre facilement transportable  
+-definir taille  
+-déterminer vitesse (ne pas être dangeureux)  
+-matériaux non polluants (biodégradables)  
 
 
 ## Nouvelles mesures
-###### A compléter avec les nouvelles mesures prises pour répondre aux problèmes rencontrées par l'équipe pendant le sprint. Ces mesures peuvent aller d'une convention de nommage à un changement radical dans la construction du robot, ou encore un flow spécifique de travail
+- taches plus simples et précises  
