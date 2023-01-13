@@ -5,12 +5,9 @@ from rclpy.node import Node
 import cv2
 import numpy as np
 from sensor_msgs.msg import Image
+from std_msgs.msg import Int16MultiArray
 from cv_bridge import CvBridge
 
-
-
-def dist_rgb_pix(pix1, pix2):
-    return np.sqrt((pix1[0] - pix2[0])**2 + (pix1[1] - pix2[1])**2 + (pix1[2] - pix2[2])**2)
 
 
 def det_lis_balls(img, H=60, tolerance=30):
@@ -18,20 +15,6 @@ def det_lis_balls(img, H=60, tolerance=30):
     img_comp = img[:, :, 0]
     coord_x, coord_y = np.array(np.where(np.abs(img_comp - H) <= tolerance))
     lis_pixels = []
-    # print(np.array(np.where(dist_rgb_pix(img, pix_ref) <= tolerance)))
-    # for i in range(len(img)) :
-    #     for j in range(len(img[i])):
-    #         if dist_rgb_pix(img[i][j], pix_ref) <= tolerance :
-    #             lis_pixels.append((i, j))
-    # if len(lis_pixels) == 0 :
-    #     return (False, lis_pixels)
-    # else :
-    #     for i in range(len(lis_pixels)) :
-    #         for j in range(len(lis_pixels) - 1, i, -1):
-    #             coord1, coord2 = lis_pixels[i], lis_pixels[j]
-    #             if np.abs(coord1[0] - coord2[0]) <= 10 or np.abs(coord1[1] - coord2[1]) <= 10 :
-    #                 lis_pixels.remove(coord2)
-    #     return (True, lis_pixels)
     if len(coord_x) == 0 :
         return lis_pixels
     else :
@@ -58,38 +41,30 @@ class MinimalSubscriber(Node):
         self.br = CvBridge()
         self.lis_balls = []
 
+        self.publisher_ = self.create_publisher(Int16MultiArray, "positions_balles", 10)
+        timer_period = 0.1 #seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+    
+    def timer_callback(self):
+        rospy.loginfo("coucou")
+        print("coucou")
+        msg = Int16MultiArray()
+        data = []
+        for ball in self.lis_balls :
+            data.append(ball[0][0])
+            data.append(ball[0][1])
+            data.append(ball[1])
+        print(data)
+        msg.data = [int(data[i]) for i in range(len(data))]
+        print(msg.data)
+        self.publisher_.publish(msg)
+
     def listener_callback(self, msg):
         current_frame = self.br.imgmsg_to_cv2(msg)
         current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
-        # print(det_lis_balls(current_frame))
         self.update_lis_balls(det_lis_balls(current_frame))
         print(self.lis_balls)
-        # # Display image
-        # cv2.imshow("camera", current_frame)
 
-        #step = msg.step
-        #rows = msg.height
-        #image = msg.data
-        #print(step, rows)
-        #print(len(image))
-        #img1 = np.zeros((step, rows))
-        #for i in range(rows):
-        #    for j in range(rows):
-        #        #print(i, j)
-        #        img1[i,j] = image[step*i+j]
-        #print(img1)
-        #hsv = cv2.cvtColor(img1, cv2.COLOR_BGR2HSV)
-        ## on effectue un masque avec les valeurs ci-dessous recuperee sur internet
-        ## pour ne garder que les lignes jaunes
-        #lower = np.array([20, 70, 100], dtype=np.uint8)
-        #upper = np.array([30, 255, 255], dtype=np.uint8)
-        #seg0 = cv2.inRange(hsv, lower, upper
-        # on affiche l'image
-
-        # cv2.waitKey(0)
-
-        sum = 0  # la somme des positions en x des pixels blancs
-        cnt = 0  # le nombre de pixels blancs
         return current_frame
     
     def update_lis_balls(self, new_lis):
