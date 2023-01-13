@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
+import matplotlib.pyplot as plt
 
 
 
@@ -66,6 +67,9 @@ class MinimalSubscriber(Node):
         print(self.lis_balls)
         # # Display image
         # cv2.imshow("camera", current_frame)
+        for pix in self.lis_balls :
+            current_frame = cv2.circle(current_frame, pix[0], radius=0, color=(255, 0, 0), thickness=-1)
+        cv2.imshow("camera", current_frame)
 
         #step = msg.step
         #rows = msg.height
