@@ -445,6 +445,24 @@
 
 
 
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+       <cylinder radius="0.0508" length="0.055"/>
+    </geometry>
+  </collision>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+       <cylinder radius="0.0508" length="0.055"/>
+    </geometry>
+  </visual>
+</link>
+
+
+
+
 <link name="camera_link">
   <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>

@@ -22,9 +22,15 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 install(
-  DIRECTORY src launch rviz config world
+  DIRECTORY src launch rviz config world scripts
   DESTINATION share/${PROJECT_NAME}
 )
+
+install(PROGRAMS
+    scripts/detec_robot.py
+    DESTINATION lib/${PROJECT_NAME}/
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -36,5 +42,11 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+
+install(PROGRAMS
+    scripts/detec_ball.py
+    DESTINATION lib/${PROJECT_NAME}/
+)
 
 ament_package()
