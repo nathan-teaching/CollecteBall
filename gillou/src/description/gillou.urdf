@@ -6,6 +6,9 @@
 <xacro:property name="base_width" value="0.31"/>
 <xacro:property name="base_length" value="0.42"/>
 <xacro:property name="base_height" value="0.18"/>
+<xacro:property name="arm_width" value="0.01"/>
+<xacro:property name="arm_length" value="0.40"/>
+<xacro:property name="arm_height" value="0.06"/>
 <xacro:property name="wheel_radius" value="0.10"/>
 <xacro:property name="wheel_width" value="0.04"/>
 <xacro:property name="wheel_ygap" value="0.025"/>
@@ -79,7 +82,55 @@
     <origin xyz="0.0 0.0 ${-(wheel_radius+wheel_zoff)}" rpy="0 0 0"/>
   </joint>
 
+<!-- Robot Left Arm -->
+<link name="left_arm_link">
+    <visual>
+      <geometry>
+        <box size="${arm_length} ${arm_width} ${arm_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${arm_length} ${arm_width} ${arm_height}"/>
+      </geometry>
+    </collision>
 
+    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+  </link>
+  
+ <joint name="left_arm_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="left_arm_link"/>
+  <origin xyz="0.30 0.20 -0.06" rpy="0 0 0.5"/>
+</joint>
+
+<!-- Robot Right Arm -->
+<link name="right_arm_link">
+    <visual>
+      <geometry>
+        <box size="${arm_length} ${arm_width} ${arm_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${arm_length} ${arm_width} ${arm_height}"/>
+      </geometry>
+    </collision>
+
+    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+  </link>
+  
+ <joint name="right_arm_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="right_arm_link"/>
+  <origin xyz="0.30 -0.20 -0.06" rpy="0 0 -0.5"/>
+</joint>
 <!-- Wheels -->
 <gazebo reference="drivewhl_r_link">
     <visual>  
@@ -297,7 +348,6 @@
   </plugin>
 </gazebo>
 
-
 <link name="lidar_link">
   <inertial>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -360,6 +410,25 @@
     </plugin>
   </sensor>
 </gazebo>
+
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+       <cylinder radius="0.0508" length="0.055"/>
+    </geometry>
+  </collision>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+       <cylinder radius="0.0508" length="0.055"/>
+    </geometry>
+  </visual>
+</link>
+
+
+
 
 <link name="camera_link">
   <visual>
