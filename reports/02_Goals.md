@@ -5,17 +5,17 @@ PO: Hugo GACE
 
 ## Fonctionnalités attendues
 
-- détecter la balle
-- décider laquelle récuperer en premier
+- détecter la balle  
+- décider laquelle récuperer en premier  
 
 
 ## Tâches à réaliser
 
-- définir caractéristiques techniques du robot
-- colorier le robot
-- lui mettre la pelle
-- finir node detection de la balle
-- finir node choix de la balle a recup
+- définir caractéristiques techniques du robot  
+- colorier le robot  
+- lui mettre la pelle  
+- finir node detection de la balle  
+- finir node choix de la balle a recup  
 
 
 ## Challenges techniques
