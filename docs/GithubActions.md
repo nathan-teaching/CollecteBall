@@ -6,7 +6,7 @@ Pour mettre en place de l'Intégration Continue (CI) dans GitHub
 
 1. Dans son dépôt local, créer le répertoire `.github/workflows/` pour stocker les fichiers de workflow.
 
-2. Dans ce répertoire crée un fichier `tennis-court-foxy.yaml`
+2. Dans ce répertoire crée un fichier exemple :  `tennis-court-foxy.yaml`
 
    ```yaml
    name: tennis-court-foxy
@@ -25,20 +25,18 @@ Pour mettre en place de l'Intégration Continue (CI) dans GitHub
          - uses: ros-tooling/action-ros-ci@0.2.7
            with:
              target-ros2-distro: foxy
-             package-name: tennis_court
+             package-name: your_package_name
    ```
 
-     
 
 
 3. Valider les modifications et poussez vers sur le dépôt sur GitHub 
 
-## Trucs
 
 
-Pour checkout  : https://github.com/actions/checkout
+## A voir
 
-Exemple :
+Exemple d'actions  :
  ```yaml
    # Nom de la github actions
    name: test-pkg 
@@ -46,7 +44,7 @@ Exemple :
    # Quand executer les actions
    on:  
      push:
-       branches: [ main ]
+       branches: [ main, devel ]
      pull_request:
        branches: [ main ]
    
@@ -61,7 +59,7 @@ Exemple :
        	image: # docker image
        
        steps:
-         - uses: # pour utiliser une github action de la market place
+         - uses: pkg/routine@version # pour utiliser une github action de la marketplace
          - run: # command bash
          - name: # si on veut donner un nom spécifique à cette commande
            uses: # utiliser 
@@ -69,7 +67,7 @@ Exemple :
              parametres: # si besoin d'avoir des paramètres
          - run : # run test
  ```
-Pour définir plusieurs environnement possibilité de passer des paramètres. Ici on lancerai des tests sur *ubuntu-latest avec foxy* et sur *ubuntu-latest avec humble* par exemple.
+Pour définir plusieurs environnements il y a la possibilité de passer des paramètres via un système matriciel. Ici on lancerai des tests sur *ubuntu-latest avec foxy* et sur *ubuntu-latest avec humble* par exemple. Voir la [doc](https://docs.github.com/fr/actions/using-jobs/using-a-matrix-for-your-jobs)
 
 ```yaml
 strategy:
@@ -78,9 +76,9 @@ strategy:
   	versions: [foxy, humble]
 ```
 
+Voir les différentes routines qui existent dans le [Github Action Marketplace](https://github.com/marketplace?type=actions)
 
-
-
+Pour Checkout  à un certain commit : https://github.com/actions/checkout
 
 ### Sources
 
