@@ -43,14 +43,17 @@ Ce package ne doit pas être modifié.
 Consulter le [README](tennis_court/README.md) du package pour plus d'informations.
 
 
-### Documents
+### Documents et liens utiles
 
 Le dossier `docs` contient tous les documents utiles au projet:
 - Des [instructions pour utiliser Git](docs/GitWorkflow_fork.md)
 - Un [Mémo pour ROS 2 et Gazebo](docs/Memo_ROS2.pdf)
 - Les [slides de la présentation Git](docs/GitPresentation.pdf)
+- Des [informations pour Github Actions](docs/GithubActions.md)
+- Des [informations sur les Normes et les Styles pour du code](docs/Linters.md)
 
-Pour faire bouger des pièces entre elles : [gazebo_ros2_control](https://github.com/ros-controls/gazebo_ros2_control)
+Pour controler des actionneurs : 
+- [Projet : ros2\_control](https://github.com/ros-controls)
 
 
 ### Rapports
