@@ -50,6 +50,8 @@ Le dossier `docs` contient tous les documents utiles au projet:
 - Un [Mémo pour ROS 2 et Gazebo](docs/Memo_ROS2.pdf)
 - Les [slides de la présentation Git](docs/GitPresentation.pdf)
 
+Pour faire bouger des pièces entre elles : [gazebo_ros2_control](https://github.com/ros-controls/gazebo_ros2_control)
+
 
 ### Rapports
 
