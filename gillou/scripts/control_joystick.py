@@ -21,7 +21,7 @@ def print_remove(joy):
     print('Removed', joy)
 
 def key_received(key):
-    print('received', key)
+    print('received', key, "a", key.value, "a", key.keyname, "a", key.keytype, "a", key.number)
     rclpy.spin_once(publisher, timeout_sec=0)
     msg = Twist()
     if key.value == Key.HAT_UP:
@@ -43,10 +43,12 @@ def key_received(key):
         msg.linear.y = 0.
         msg.angular.z = 0.
     if key.keyname == "Axis 2":
+        print("avant")
         msg.linear.x = 1.
     if key.keyname == "Axis 5":
-        msg.angular.z = -1.
+        msg.linear.x = -1.
     if key.keyname in ["Axis 0", "Axis 1", "-Axis 0", "-Axis 1"]:
+        print(key.keyname)
         # msg.linear.x = 1.
         msg.angular.z = 30 * np.abs(key.value)
     if key.keyname in ["Axis 3", "Axis 4", "-Axis 3", "-Axis 4"]:
