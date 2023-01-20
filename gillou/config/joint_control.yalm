@@ -13,25 +13,12 @@ joint_trajectory_controller:
     joints:
       - rot_joint_joint
 
-    write_op_modes:
-      - rot_joint_joint
-
-    interface_name: position
-
     command_interfaces:
-      - position
+      - effort
 
     state_interfaces:
       - position
       - velocity
+      - effort
+      
 
-    state_publish_rate: 50.0 # Defaults to 50
-    action_monitor_rate: 20.0 # Defaults to 20
-
-    allow_partial_joints_goal: false # Defaults to false
-    hardware_state_has_offset: true
-    deduce_states_from_derivatives: true
-    
-    constraints:
-      stopped_velocity_tolerance: 0.01 # Defaults to 0.01
-      goal_time: 0.0 # Defaults to 0.0 (start immediately)
