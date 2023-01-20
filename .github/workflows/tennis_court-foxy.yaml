@@ -2,10 +2,14 @@ name: tennis-court-foxy
 
 on: 
   push:
-    branches: [ github-actions ]
+    branches: 
+      - main
+      - github-actions
   pull_request:
-    branches: [ github-actions ]
-    
+    branches:
+      - main
+      - github-actions
+      
 jobs:
   build:
     runs-on: ubuntu-20.04
