@@ -9,25 +9,29 @@ Pourcentage de tâches réalisées: ... %
 
 ### Ce qui a fonctionné
 
-###### A compléter.
-
+le controle manette via la croix directionnelle
+le visuel du robot sur autodesk
 
 ### Ce qui n'a pas fonctionné
 
-###### A compléter.
+Le controle du bras via un joint sur gazebo
+Problème au niveau de la détection du cap du robot
+PRoblème au niveau du joystick (inputs peu clairs)
 
 
 ### Retour d'expérience du PO
 
-###### A compléter.
+Il n'est pas forcément simple de diviser certains objectifs en petites sous-taches.
+IL n'est pas non plus facile de savoir comment aider les membres du groupe
 
 
 ### Conseils pour le prochain PO
 
-###### A compléter.
-
+Ne pas oublier de finir les tests du groupe précédent (et le rappeler aux autres)
+Penser à régulièrement
+Noter les nouveaux problèmes, même si on ne les traite pas tout de suite, ça peut aider le PO suivant pour les futures tâches
 
 
 ## Nouvelles mesures
 
-###### A compléter avec les nouvelles mesures prises pour répondre aux problèmes rencontrées par l'équipe pendant le sprint. Ces mesures peuvent aller d'une convention de nommage à un changement radical dans la construction du robot, ou encore un flow spécifique de travail.
+pas de RDV client par manque de temps
