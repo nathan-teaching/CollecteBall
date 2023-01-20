@@ -290,7 +290,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${door_width}" d="${door_length}" h="${door_height}"/>
+    <xacro:box_inertia m="0.5" w="${door_width}" d="${door_length}" h="${door_height}"/>
   </link>
   
  <joint name="door_joint" type="fixed">
@@ -374,7 +374,7 @@
           <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
         </geometry>
       </collision>
-      <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
+      <xacro:cylinder_inertia m="1" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
 
     <joint name="${prefix}_joint" type="continuous">
@@ -418,7 +418,7 @@
       </geometry>
     </collision>
 
-    <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+    <xacro:sphere_inertia m="1" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
 
   <joint name="caster_joint_l" type="fixed">
