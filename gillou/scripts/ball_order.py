@@ -33,16 +33,16 @@ class MinimalSubscriber(Node):
             10)
         self.subscription3  # prevent unused variable warning
 
-        self.subscription4 = self.create_subscription(
-            Twist,
-            '/demo/cmd_vel',
-            self.listener_cmd_callback,
-            10)
-        self.subscription4  # prevent unused variable warning
+        # self.subscription4 = self.create_subscription(
+        #     Twist,
+        #     '/demo/cmd_vel',
+        #     self.listener_cmd_callback,
+        #     10)
+        # self.subscription4  # prevent unused variable warning
 
-        self.publisher_ = self.create_publisher(Twist, '/demo/cmd_devel', 10)
+        self.publisher_ = self.create_publisher(Twist, '/demo/cmd_vel', 10)
         timer_period = 0.1  # seconds
-        self.timer = self.create_timer(timer_period, self.timer__cmd_callback)
+        self.timer = self.create_timer(timer_period, self.timer_cmd_callback)
 
 
 
@@ -50,11 +50,14 @@ class MinimalSubscriber(Node):
         self.orientation_robot = 0
         self.cmd_linear = Vector3() #must be a Vector3
         self.cmd_angular = Vector3() #must be a Vector3
+        print("coucou on est dans ball_order")
+        self.get_logger().info('Ball order publie' )
 
     def timer_cmd_callback(self):
         msg = Twist()
         msg.linear = self.cmd_linear
         msg.angular = self.cmd_angular
+        self.straight_line()
         self.publisher_.publish(msg)
 
     def listener_callback(self, msg):
@@ -73,32 +76,32 @@ class MinimalSubscriber(Node):
     def listener_orientation_callback(self, msg):
         self.orientation_robot = msg.data
 
-    def listener_cmd_callback(self, msg):
-        self.cmd_linear = msg.linear
-        self.cmd_angular = msg.angular
+    # def listener_cmd_callback(self, msg):
+    #     self.cmd_linear = msg.linear
+    #     self.cmd_angular = msg.angular
 
     # TODO control the orientation of the robot and put it into a straight line motion
 
 
-    def straight_line(self, x_dest, y_dest):
+    def straight_line(self, x_dest=10, y_dest=10):
         """
         robot goes in a straight line to the desired position
         input : coordinates of the robot and coordinates to go
         output : None, the robot goes to the desired position
         """
+        print("on est dans straight line")
         x,y = self.position_robot
         angle_robot = self.orientation_robot
-        A = y_dest - y
-        B = x - x_dest
-        cos_theta = B/(np.sqrt(A**2+B**2))
-        theta = np.arccos(cos_theta)
+        theta = np.arctan((y_dest - y)/(x_dest - x))
+
         err_angle = 1  # deg ?
         err_pos = 1 #m ?
-        while (np.abs(theta - angle_robot) > err_angle):
-            self.cmd_angular.z = 1
+        # self.get_logger().info('angle cherché: "%f"' % theta) 
+        if (np.abs(theta - angle_robot) > err_angle):
+            self.cmd_angular.z = 1.
         
-        while(abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
-            self.cmd_linear.x = 1
+        if (abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
+            self.cmd_linear.x = 1.
 
 
 

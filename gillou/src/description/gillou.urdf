@@ -145,7 +145,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+    <xacro:box_inertia m="0.01" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
   </link>
   
  <joint name="left_arm_joint" type="fixed">
@@ -181,7 +181,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+    <xacro:box_inertia m="0.01" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
   </link>
   
  <joint name="right_arm_joint" type="fixed">
@@ -217,7 +217,7 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${hook_radius}" h="${hook_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${hook_radius}" h="${hook_width}"/>
   </link>
   
  <joint name="first_hook_joint" type="fixed">
@@ -254,7 +254,7 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${hook_radius}" h="${hook_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${hook_radius}" h="${hook_width}"/>
   </link>
   
  <joint name="second_hook_joint" type="fixed">
@@ -290,7 +290,10 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="0.5" w="${door_width}" d="${door_length}" h="${door_height}"/>
+
+    <xacro:box_inertia m="0.01" w="${door_width}" d="${door_length}" h="${door_height}"/>
+
+    
   </link>
   
  <joint name="door_joint" type="fixed">
@@ -315,11 +318,11 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${rot_joint_radius}" h="${rot_joint_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${rot_joint_radius}" h="${rot_joint_width}"/>
   </link>
   
  <joint name="rot_joint_joint" type="revolute">
-  <origin xyz="0.02 0 0.11" rpy="${pi/2} 0 0"/>
+  <origin xyz="0.02 0 0.11" rpy="${pi/2} -0.5 0"/>
       <parent link="base_link"/>
       <child link="rot_joint_link"/>
       <axis xyz="0 0 1"/>
@@ -342,15 +345,14 @@
         <param name="initial_value">1.0</param>
       </state_interface>
       <state_interface name="velocity"/>
-      <state_interface name="effort"/>
+      
     </joint>
   </ros2_control>
 
 
 <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-      <robot_param>robot_description</robot_param>
-      <robot_param_node>robot_state_publisher</robot_param_node>
+
       <parameters>$(find gillou)/config/joint_control.yaml</parameters>
     </plugin>
 </gazebo>
@@ -374,7 +376,7 @@
           <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
         </geometry>
       </collision>
-      <xacro:cylinder_inertia m="1" r="${wheel_radius}" h="${wheel_width}"/>
+      <xacro:cylinder_inertia m="2" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
 
     <joint name="${prefix}_joint" type="continuous">
@@ -418,10 +420,12 @@
       </geometry>
     </collision>
 
-    <xacro:sphere_inertia m="1" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+
+    <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+
   </link>
 
-  <joint name="caster_joint_l" type="fixed">
+  <joint name="caster_joint_l" type="continuous">
     <parent link="base_link"/>
     <child link="front_caster_l"/>
     <origin xyz="${caster_xoff} ${(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
@@ -457,7 +461,7 @@
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
 
-    <joint name="caster_joint_r" type="fixed">
+    <joint name="caster_joint_r" type="continuous">
     <parent link="base_link"/>
     <child link="front_caster_r"/>
     <origin xyz="${caster_xoff} ${-(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
@@ -566,11 +570,11 @@
     <right_joint>drivewhl_r_joint</right_joint>
 
     <!-- kinematics -->
-    <wheel_separation>0.4</wheel_separation>
+    <wheel_separation>0.45</wheel_separation>
     <wheel_diameter>0.2</wheel_diameter>
 
     <!-- limits -->
-    <max_wheel_torque>40</max_wheel_torque>
+    <max_wheel_torque>6</max_wheel_torque>
     <max_wheel_acceleration>2.0</max_wheel_acceleration>
 
     <!-- output -->
@@ -582,7 +586,6 @@
     <robot_base_frame>base_link</robot_base_frame>
   </plugin>
 </gazebo>
-
 
 
 
