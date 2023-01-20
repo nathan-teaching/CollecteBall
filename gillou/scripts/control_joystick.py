@@ -33,11 +33,11 @@ def key_received(key):
     if key.value == Key.HAT_LEFT:
         #do something
         msg.linear.x = 0.5
-        msg.angular.z = 1.
+        msg.angular.z = 3.
     elif key.value == Key.HAT_RIGHT:
         #do something
         msg.linear.x = 0.5
-        msg.angular.z = -1.
+        msg.angular.z = -3.
     elif key.value == Key.HAT_CENTERED :
         msg.linear.x = 0.
         msg.linear.y = 0.
@@ -46,14 +46,16 @@ def key_received(key):
         msg.linear.x = 1.
     if key.keyname == "Axis 5":
         msg.angular.z = -1.
-    if key.keyname in ["Axis 0", "Axis 1"]:
+    if key.keyname in ["Axis 0", "Axis 1", "-Axis 0", "-Axis 1"]:
         # msg.linear.x = 1.
         msg.angular.z = 30 * np.abs(key.value)
-    if key.keyname in ["Axis 3", "Axis 4"]:
+    if key.keyname in ["Axis 3", "Axis 4", "-Axis 3", "-Axis 4"]:
         # msg.linear.x = -1.
         msg.angular.z = 30 * -np.abs(key.value)
-    if key.keyname == "Button 1":
-        msg.linear.z = 1.
+    if key.keyname in ["Button 6", "Button 7"]:
+        msg.linear.x = 0.
+        msg.linear.y = 0.
+        msg.angular.z = 0.
     publisher.publisher_.publish(msg)
     rclpy.spin_once(publisher, timeout_sec=0)
 
