@@ -22,7 +22,7 @@ def print_remove(joy):
 
 def key_received(key):
     print('received', key)
-    rclpy.spin_once(publisher, timeout_sec=0.01)
+    rclpy.spin_once(publisher, timeout_sec=0)
     msg = Twist()
     if key.value == Key.HAT_UP:
         #do something
@@ -42,20 +42,20 @@ def key_received(key):
         msg.linear.x = 0.
         msg.linear.y = 0.
         msg.angular.z = 0.
-    elif key.value == Key.HAT_UPLEFT:
-        #do something
-        pass
-    elif key.value == Key.HAT_DOWNLEFT:
-        #do something
-        pass
-    elif key.value == Key.HAT_UPRIGHT:
-        #do something
-        pass
-    elif key.value == Key.HAT_DOWNRIGHT:
-        #do something
-        pass
+    if key.keyname == "Axis 2":
+        msg.linear.x = 1.
+    if key.keyname == "Axis 5":
+        msg.angular.z = -1.
+    if key.keyname in ["Axis 0", "Axis 1"]:
+        # msg.linear.x = 1.
+        msg.angular.z = 30 * np.abs(key.value)
+    if key.keyname in ["Axis 3", "Axis 4"]:
+        # msg.linear.x = -1.
+        msg.angular.z = 30 * -np.abs(key.value)
+    if key.keyname == "Button 1":
+        msg.linear.z = 1.
     publisher.publisher_.publish(msg)
-    rclpy.spin_once(publisher, timeout_sec=0.01)
+    rclpy.spin_once(publisher, timeout_sec=0)
 
 if __name__ == "__main__" :
     rclpy.init(args=None)
