@@ -14,9 +14,9 @@ PO: Hugo Reubrecht
 - Débugger le contrôle déplacement d'un point A vers B
 - Réussir déplacement robot vers une balle
 - Réaliser le mouvement de la pelle sur Gazebo (et contrôle via noeud ROS si le temps)
-- Importer mesh du robot inventor sur gazebo
+- Ajout d'une poignée sur inventor
+- Importer mesh du robot inventor sur gazebo (corps et pelle)
 - Ajouter des commentaires et tests unitaires
-- Ajouter des actions github
 - Choisir une convention de codage
 
 
