@@ -83,7 +83,7 @@ class MinimalSubscriber(Node):
     # TODO control the orientation of the robot and put it into a straight line motion
 
 
-    def straight_line(self, x_dest=10, y_dest=10):
+    def straight_line(self, x_dest=200, y_dest=300):
         """
         robot goes in a straight line to the desired position
         input : coordinates of the robot and coordinates to go
@@ -94,14 +94,22 @@ class MinimalSubscriber(Node):
         angle_robot = self.orientation_robot
         theta = np.arctan((y_dest - y)/(x_dest - x))
 
-        err_angle = 1  # deg ?
-        err_pos = 1 #m ?
-        # self.get_logger().info('angle cherché: "%f"' % theta) 
+        err_angle =0.01  # deg ?
+        err_pos = 10 #m ?
+        self.get_logger().info('angle cherché: "%f"' % theta) 
+        self.get_logger().info('angle actu: "%f"' % angle_robot) 
+
         if (np.abs(theta - angle_robot) > err_angle):
-            self.cmd_angular.z = 1.
-        
+            self.get_logger().info('aaaaaaaaaaaaaa') 
+            self.cmd_angular.z = 0.5
+        else:
+            self.get_logger().info('bbbbbbbbbbbbbb') 
+            self.cmd_angular.z = 0.
+
         if (abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
-            self.cmd_linear.x = 1.
+            self.cmd_linear.x = 0.3
+        else:
+            self.cmd_linear.x = 0.
 
 
 

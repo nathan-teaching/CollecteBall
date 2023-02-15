@@ -83,7 +83,7 @@ class MinimalSubscriber(Node):
 
         # # self.get_logger().info('xp: "%f"' % xp)
         # angle = np.arctan((yp - yr)/(xp - xr))
-        self.get_logger().info('angle: "%f"' % angle)
+        #self.get_logger().info('angle: "%f"' % angle)
 
         return angle
 
