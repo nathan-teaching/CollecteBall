@@ -70,3 +70,6 @@ A noter que les points associés au premier facteur sont plus importants, il est
 ## 4. Le robot 
 
 La seule contrainte est que vous devez concevoir un robot terrestre à roues. Le mécanisme de collecte des balles ainsi que la stratégie employée sont complètement libres. Tous les capteurs sont autorisés, ainsi que tous les packages ROS 2 que vous jugerez pertinents. Le robot ne doit pas recourir à des capteurs extérieurs à l’exception de la caméra zénithale. La collecte doit être réalisée par une unique instance du robot.
+
+## Auteurs et Contributeurs
+[RemiRigal](https://github.com/RemiRigal) [TilletJ](https://github.com/TilletJ) [nathanfourniol](https://github.com/nathanfourniol) [KevinBdN](https://github.com/KevinBdn) [ThomasLeMezo](https://github.com/ThomasLeMezo)
