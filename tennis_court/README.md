@@ -11,7 +11,7 @@ Ce package contient:
 
 ## Utilisation
 
-Démarrer la simulation en lançant ou incluant le fichier [`tennis_court.launch.py`](launch/tennis_court.launch.py).
+Démarrer la simulation en lançant ou incluant le fichier [`tennis_court.launch.py`](launch/tennis_court.launch.py). Une fois lancée, la simulation démarre au spawn du robot.
 
 Lancer le fichier:
 ```shell

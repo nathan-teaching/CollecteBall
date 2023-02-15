@@ -34,7 +34,14 @@ find_package(rmw_implementation_cmake REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BallManagerStats.msg"
+  "msg/GameStatus.msg"
 )
+
+add_library(AttachModelPlugin SHARED src/AttachModelPlugin.cc)
+ament_target_dependencies(AttachModelPlugin
+  "gazebo_dev"
+)
+ament_export_libraries(AttachModelPlugin)
 
 set (CMAKE_AUTOMOC ON)
 
@@ -63,6 +70,7 @@ ament_package()
 
 install(TARGETS
     gui_tennis_court_overlay
+    AttachModelPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)

@@ -2,6 +2,7 @@
 <sdf version="1.6">
     <world name="default">
         <scene>
+            <shadows>false</shadows>
             <sky>
                 <clouds>
                     <speed>12</speed>
@@ -20,6 +21,110 @@
             <pose>0 0 8 3.14159 1.57079 3.14159</pose>
             <uri>model://zenith_camera</uri>
         </include>
+
+        <model name="player_1_collision">
+            <include>
+                <uri>model://person_standing</uri>
+                <pose>0 0 0 0 0 3.14159</pose>
+            </include>
+        </model>
+        <actor name="player_1">
+            <link name="player_link"/>
+            <script>
+                <loop>true</loop>
+                <auto_start>true</auto_start>
+                <trajectory id="0" type="square">
+                    <waypoint>
+                        <time>0.0</time>
+                        <pose>-4 -12 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>3.0</time>
+                        <pose>-4 -10 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>8.0</time>
+                        <pose>0 -5 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>13.0</time>
+                        <pose>4 -10 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>16.0</time>
+                        <pose>4 -12 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>23.0</time>
+                        <pose>-4 -12 0 0</pose>
+                    </waypoint>
+                </trajectory>
+            </script>
+            <plugin name="attach_model" filename="libAttachModelPlugin.so">
+                <link>
+                    <link_name>player_link</link_name>
+                    <model>
+                        <model_name>player_1_collision</model_name>
+                    </model>
+                </link>
+            </plugin>
+        </actor>
+
+        <model name="player_2_collision">
+            <include>
+                <uri>model://person_standing</uri>
+                <pose>0 0 0 0 0 0</pose>
+            </include>
+        </model>
+        <actor name="player_2">
+            <link name="player_link"/>
+            <script>
+                <loop>true</loop>
+                <auto_start>true</auto_start>
+                <trajectory id="0" type="square">
+                    <waypoint>
+                        <time>0.0</time>
+                        <pose>0 10 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>6.0</time>
+                        <pose>3 4 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>12.0</time>
+                        <pose>0 10 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>18.0</time>
+                        <pose>-3 4 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>24.0</time>
+                        <pose>0 10 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>30.0</time>
+                        <pose>5 11 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>37.0</time>
+                        <pose>-2 11 0 0</pose>
+                    </waypoint>
+                    <waypoint>
+                        <time>42.0</time>
+                        <pose>0 10 0 0</pose>
+                    </waypoint>
+                </trajectory>
+            </script>
+            <plugin name="attach_model" filename="libAttachModelPlugin.so">
+                <link>
+                    <link_name>player_link</link_name>
+                    <model>
+                        <model_name>player_2_collision</model_name>
+                    </model>
+                </link>
+            </plugin>
+        </actor>
 
         <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
             <update_rate>10</update_rate>
