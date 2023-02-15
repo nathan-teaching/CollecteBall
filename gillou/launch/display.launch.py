@@ -68,6 +68,15 @@ def generate_launch_description():
        parameters=[os.path.join(pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}]
 )
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+
+    load_joint_state_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_state_broadcaster'],
+        output='screen')
+
+    load_joint_trajectory_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_trajectory_controller'],
+        output='screen')
+
     
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
@@ -76,12 +85,16 @@ def generate_launch_description():
         launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='True',
                                             description='Flag to enable use_sim_time'),
+
         tennis_court_launch,
         #joint_state_publisher_node=launch_ros_actions.Node(package='joint_state_publisher', executable='joint_state_publisher', name='joint_state_publisher', parameters=[{'use_sim_time':use_sim_time}]),
         #joint_state_publisher_gui_node,
         robot_state_publisher_node,
         spawn_entity,
-        robot_localization_node
+        robot_localization_node,
+
+        load_joint_state_controller,
+        load_joint_trajectory_controller
         # rviz_node
     ])
         # launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
