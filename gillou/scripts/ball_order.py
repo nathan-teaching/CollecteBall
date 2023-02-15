@@ -24,7 +24,7 @@ class MinimalSubscriber(Node):
             "/position_robot", 
             self.listener_pos_rob_callback, 
             10)
-        self.subscription2
+        self.subscription2 # prevent unused variable warning
 
         self.subscription3 = self.create_subscription(
             Float32,
@@ -249,8 +249,6 @@ def ball_to_fetch(ball_list, radius, objective="zone"):
             ball_to_fetch.append([b[0], b[1]])
 
     return ball_to_fetch
-
-
 
 
 def goto(x_robot, y_robot, x_dest, y_dest):
