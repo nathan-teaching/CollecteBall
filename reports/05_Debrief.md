@@ -9,25 +9,31 @@ Pourcentage de tâches réalisées: ... %
 
 ### Ce qui a fonctionné
 
-###### A compléter.
-
+- Joystick fonctionne
+- Débuggage et intégrations de fichiers py
+- Changement d'architecture pour démonter et ranger facilement
+- Changements des masses et de la pelle pour permettre le déplacement
+- Implémentation de github actions
 
 ### Ce qui n'a pas fonctionné
 
-###### A compléter.
-
+- La pelle dans gazebo
+- Le choix de la convention de code
+- Le passage des tests des fichiers pour la convention
 
 ### Retour d'expérience du PO
 
-###### A compléter.
-
+- Séance de résolution de problèmes plutôt efficace
 
 ### Conseils pour le prochain PO
 
-###### A compléter.
+- Ne pas faire plein de tâches avec les objectifs de la séance dès le début mais plutôt une par personne au début
+- S'intéresser à ce que font les gens pour les aider, les soutenir et mettre à jour les tâches
 
 
 
 ## Nouvelles mesures
 
-###### A compléter avec les nouvelles mesures prises pour répondre aux problèmes rencontrées par l'équipe pendant le sprint. Ces mesures peuvent aller d'une convention de nommage à un changement radical dans la construction du robot, ou encore un flow spécifique de travail.
+- Choisir une convention de code
+- Modifier le code pour faire passer les tests
+- Ajouter des commentaires et des tests unitaires
