@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import rclpy
-from rclpy.node import Node
 import cv2
 import numpy as np
+from rclpy.node import Node
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Vector3
 from cv_bridge import CvBridge
+
 
 class MinimalSubscriber(Node):
 
@@ -19,7 +20,7 @@ class MinimalSubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
         self.br = CvBridge()
-        self.position_robot = (0,0)
+        self.position_robot = (0, 0)
         self.publisher_ = self.create_publisher(Vector3, 'position_robot', 10)
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
