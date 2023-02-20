@@ -54,6 +54,7 @@ def generate_launch_description():
 )
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
+<<<<<<< HEAD
     
 
     load_joint_state_controller = ExecuteProcess(
@@ -66,6 +67,15 @@ def generate_launch_description():
         cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active', 'joint_trajectory_controller'],
         output='screen'
     )
+=======
+    load_joint_state_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_state_broadcaster'],
+        output='screen')
+
+    load_joint_trajectory_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_trajectory_controller'],
+        output='screen')
+>>>>>>> 17f9372b11a7001e58022f9895c6e1e89a324b99
 
     
     return launch.LaunchDescription([
@@ -75,14 +85,22 @@ def generate_launch_description():
         #launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='True',
                                             description='Flag to enable use_sim_time'),
+
         tennis_court_launch,
         robot_state_publisher_node,
         spawn_entity,
         robot_localization_node,
+<<<<<<< HEAD
         
         load_joint_trajectory_controller,
         load_joint_state_controller
      
       
+=======
+
+        load_joint_state_controller,
+        load_joint_trajectory_controller
+        # rviz_node
+>>>>>>> 17f9372b11a7001e58022f9895c6e1e89a324b99
     ])
         
