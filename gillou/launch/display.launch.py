@@ -38,12 +38,12 @@ def generate_launch_description():
         
     )
 
-    #spawn_entity = launch_ros.actions.Node(
-    #package='gazebo_ros',
-    #executable='spawn_entity.py',
-    #arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
-    #output='screen'
-    #)
+    spawn_entity = launch_ros.actions.Node(
+    package='gazebo_ros',
+    executable='spawn_entity.py',
+    arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
+    output='screen'
+    )
 #
     robot_localization_node = launch_ros.actions.Node(
        package='robot_localization',
