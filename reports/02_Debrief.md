@@ -1,11 +1,11 @@
 # Debrief du xx/xx/xxxx
 
-PO: ...
+PO: Hugo GACE
 
 
 ## Bilan
 
-Pourcentage de tâches réalisées: 37.5 %
+Pourcentage de tâches réalisées: 33.36 %
 
 ### Ce qui a fonctionné
 
@@ -32,7 +32,7 @@ appris a faire des release sur github
 ### Conseils pour le prochain PO
 
 penser a faire des release à la fin de chaque sprint (la version 1.0 correspondra à un robot qui marche)  
-continuer a faire un découpage en taches spécifiques
+continuer a faire un découpage en taches spécifiques  
 
 
 

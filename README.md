@@ -38,7 +38,7 @@ ros2 launch gillou display.launch.py
 
 ### Membres
 
-Gace Hugo, Langlard Thibault, Potin Laurent, Reubrecht Hugo, Wanctin Hugo
+Gace Hugo, Langlard Hugo, Potin Hugo, Reubrecht Hugo, Wanctin Hugo
 
 
 ### Gestion de projet

@@ -39,7 +39,6 @@
       <mass value="${m}"/>
       <inertia ixx="${(m/12) * (h*h + d*d)}" ixy="0.0" ixz="0.0" iyy="${(m/12) * (w*w + d*d)}" iyz="0.0" izz="${(m/12) * (w*w + h*h)}"/>
     </inertial>
-
   </xacro:macro>
 
   <xacro:macro name="cylinder_inertia" params="m r h">
@@ -57,6 +56,28 @@
     </inertial>
   </xacro:macro>
 
+<gazebo reference="drivewhl_r_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+  <gazebo reference="drivewhl_l_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0.  0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0.  0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 
 
   <!-- Robot Base -->
@@ -73,12 +94,14 @@
 
   <link name="base_link">
     <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="${base_length} ${base_width} ${base_height}"/>
+        <!--<box size="${base_length} ${base_width} ${base_height}"/>-->
+        <mesh filename="package://gillou/description_inventor/robot.dae"/>
       </geometry>
-      <material name="Cyan">
+   <!--   <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material>-->
     </visual>
     <collision>
       <geometry>
@@ -91,7 +114,6 @@
 
 <!-- Robot Footprint -->
   <link name="base_footprint"/>
-
   <joint name="base_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_footprint"/>
@@ -99,6 +121,17 @@
   </joint>
 
 <!-- Robot Left Arm -->
+  <gazebo reference="left_arm_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.4  0. 1.0</ambient>  
+      <diffuse>0.  0. 0. 1.0</diffuse>  
+      <specular>0.  0.4  0. 1.0</specular>  
+      <emissive>0.  0.4 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 <link name="left_arm_link">
     <visual>
       <geometry>
@@ -114,7 +147,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+    <xacro:box_inertia m="0.01" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
   </link>
   
  <joint name="left_arm_joint" type="fixed">
@@ -124,6 +157,17 @@
 </joint>
 
 <!-- Robot Right Arm -->
+  <gazebo reference="right_arm_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.4  0. 1.0</ambient>  
+      <diffuse>0.  0.4 0. 1.0</diffuse>  
+      <specular>0.  0.4  0. 1.0</specular>  
+      <emissive>0.  0.4 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 <link name="right_arm_link">
     <visual>
       <geometry>
@@ -139,7 +183,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
+    <xacro:box_inertia m="0.01" w="${arm_width}" d="${arm_length}" h="${arm_height}"/>
   </link>
   
  <joint name="right_arm_joint" type="fixed">
@@ -149,14 +193,26 @@
 </joint>
 
 <!-- Robot First Hook -->
+  <gazebo reference="first_hook_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.4  0. 1.0</ambient>  
+      <diffuse>0.  0.4 0. 1.0</diffuse>  
+      <specular>0.  0.4  0. 1.0</specular>  
+      <emissive>0.  0.4 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 <link name="first_hook_link">
     <visual>
       <geometry>
-       <cylinder radius="${hook_radius}" length="${hook_width}"/>
+       <!--<cylinder radius="${hook_radius}" length="${hook_width}"/>-->
+       <mesh filename="package://gillou/description_inventor/pelle.dae"/>
       </geometry>
-      <material name="Cyan">
+    <!--  <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material> -->
     </visual>
     <collision>
       <geometry>
@@ -164,19 +220,28 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${hook_radius}" h="${hook_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${hook_radius}" h="${hook_width}"/>
   </link>
   
  <joint name="first_hook_joint" type="fixed">
   <origin xyz="0.16 0.06 0" rpy="${-pi/2} 0 -1.2"/>
       <parent link="rot_joint_link"/>
       <child link="first_hook_link"/>
-      
-      
 </joint>
 
 
 <!-- Robot Second Hook -->
+  <gazebo reference="second_hook_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.4  0. 1.0</ambient>  
+      <diffuse>0.  0.4 0. 1.0</diffuse>  
+      <specular>0.  0.4  0. 1.0</specular>  
+      <emissive>0.  0.4 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
 <link name="second_hook_link">
     <visual>
       <geometry>
@@ -192,19 +257,27 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${hook_radius}" h="${hook_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${hook_radius}" h="${hook_width}"/>
   </link>
   
  <joint name="second_hook_joint" type="fixed">
   <origin xyz="0.15 0 0.20" rpy="0 -1.8 0"/>
       <parent link="first_hook_link"/>
       <child link="second_hook_link"/>
-      
-      
 </joint>
 
 
 <!-- Robot Door -->
+  <gazebo reference="door_link">
+    <visual>  
+    <material>  
+      <ambient>0.  0.4  0. 1.0</ambient>  
+      <diffuse>0.  0.4 0. 1.0</diffuse>  
+      <specular>0.  0.4  0. 1.0</specular>  
+      <emissive>0.  0.4 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
 <link name="door_link">
     <visual>
       <geometry>
@@ -220,7 +293,10 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="1" w="${door_width}" d="${door_length}" h="${door_height}"/>
+
+    <xacro:box_inertia m="0.01" w="${door_width}" d="${door_length}" h="${door_height}"/>
+
+    
   </link>
   
  <joint name="door_joint" type="fixed">
@@ -245,40 +321,46 @@
       </geometry>
     </collision>
 
-    <xacro:cylinder_inertia m="0.5" r="${rot_joint_radius}" h="${rot_joint_width}"/>
+    <xacro:cylinder_inertia m="0.01" r="${rot_joint_radius}" h="${rot_joint_width}"/>
   </link>
   
- <joint name="rot_joint_joint" type="fixed">
-  <origin xyz="0.02 0 0.11" rpy="${pi/2} 0 0"/>
+ <joint name="rot_joint_joint" type="revolute">
+  <origin xyz="0.02 0 0.11" rpy="${pi/2} -0.5 0"/>
       <parent link="base_link"/>
       <child link="rot_joint_link"/>
+      <axis xyz="0 0 1"/>
+   <limit effort="100" velocity="30" upper="3.14" lower="-3.14"/>
+    <dynamics damping="0.7"/>
       
       
 </joint>
+<!-- Gazebo ros control -->
+<ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="rot_joint_joint">
+      <command_interface name="position">
+        <param name="min">-15</param>
+        <param name="max">15</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">1.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      
+    </joint>
+  </ros2_control>
+
+
+<gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+
+      <parameters>$(find gillou)/config/joint_control.yaml</parameters>
+    </plugin>
+</gazebo>
 
 <!-- Wheels -->
-<gazebo reference="drivewhl_r_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
-  <gazebo reference="drivewhl_l_link">
-    <visual>  
-    <material>  
-      <ambient>0.  0.  0. 1.0</ambient>  
-      <diffuse>0.  0.  0. 1.0</diffuse>  
-      <specular>0.  0.  0. 1.0</specular>  
-      <emissive>0.  0.  0. 1.0</emissive>  
-    </material>  
-    </visual>
-  </gazebo>
-
 
   <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
     <link name="${prefix}_link">
@@ -297,33 +379,73 @@
           <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
         </geometry>
       </collision>
-      <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
+      <xacro:cylinder_inertia m="2" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
 
     <joint name="${prefix}_joint" type="continuous">
       <parent link="base_link"/>
       <child link="${prefix}_link"/>
-      
       <origin xyz="${x_reflect*wheel_xoff} ${y_reflect*(base_width/2+wheel_ygap)} ${-wheel_zoff}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
     </joint>
+
   </xacro:macro>
 
   <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
   <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+  
 
  <!-- Caster Wheel -->
- <gazebo reference="front_caster_link">
+  <gazebo reference="front_caster_l">
     <visual>  
     <material>  
-      <ambient>0.1 0.1 0.1 1.0</ambient>  
-      <diffuse>0.1 0.1 0.1 1.0</diffuse>  
-      <specular>0.1 0.1 0.1 1.0</specular>  
-      <emissive>0.1 0.1 0.1 1.0</emissive>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0. 0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0. 0. 1.0</emissive>  
     </material>  
     </visual>
   </gazebo>
-  <link name="front_caster">
+
+  <link name="front_caster_l">
+    <visual>
+      <geometry>
+        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+      </geometry>
+    </collision>
+
+
+    <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+
+  </link>
+
+  <joint name="caster_joint_l" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_caster_l"/>
+    <origin xyz="${caster_xoff} ${(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
+  </joint>
+
+    <gazebo reference="front_caster_r">
+    <visual>  
+    <material>  
+      <ambient>0.  0.  0. 1.0</ambient>  
+      <diffuse>0.  0. 0. 1.0</diffuse>  
+      <specular>0.  0.  0. 1.0</specular>  
+      <emissive>0.  0. 0. 1.0</emissive>  
+    </material>  
+    </visual>
+  </gazebo>
+
+    <link name="front_caster_r">
     <visual>
       <geometry>
         <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
@@ -341,18 +463,13 @@
 
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
-<!--partie rajoutée-->
-  <!--<gazebo reference="front_caster">-->
-  <!--  <material>Gazebo/Orange</material>-->
-  <!--  <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>-->
-  <!--  <selfCollide>True</selfCollide>-->
-  <!--<gazebo>-->
 
-  <joint name="caster_joint" type="fixed">
+    <joint name="caster_joint_r" type="continuous">
     <parent link="base_link"/>
-    <child link="front_caster"/>
-    <origin xyz="${caster_xoff} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
+    <child link="front_caster_r"/>
+    <origin xyz="${caster_xoff} ${-(0.5*base_width)/2} ${-(base_height/2)}" rpy="0 0 0"/>
   </joint>
+
 
 <link name="imu_link">
   <visual>
@@ -456,11 +573,11 @@
     <right_joint>drivewhl_r_joint</right_joint>
 
     <!-- kinematics -->
-    <wheel_separation>0.4</wheel_separation>
+    <wheel_separation>0.45</wheel_separation>
     <wheel_diameter>0.2</wheel_diameter>
 
     <!-- limits -->
-    <max_wheel_torque>40</max_wheel_torque>
+    <max_wheel_torque>6</max_wheel_torque>
     <max_wheel_acceleration>2.0</max_wheel_acceleration>
 
     <!-- output -->
@@ -472,7 +589,6 @@
     <robot_base_frame>base_link</robot_base_frame>
   </plugin>
 </gazebo>
-
 
 
 
