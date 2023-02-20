@@ -44,8 +44,6 @@ class MinimalSubscriber(Node):
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_cmd_callback)
 
-
-
         self.position_robot = (0, 0)
         self.orientation_robot = 0
         self.cmd_linear = Vector3() #must be a Vector3
@@ -71,7 +69,7 @@ class MinimalSubscriber(Node):
         pos_x = msg.x
         pos_y = msg.y
         self.position_robot = (pos_x, pos_y)
-        print(self.position_robot)
+        self.get_logger().info("POS ROB")
 
     def listener_orientation_callback(self, msg):
         self.orientation_robot = msg.data
@@ -82,8 +80,15 @@ class MinimalSubscriber(Node):
 
     # TODO control the orientation of the robot and put it into a straight line motion
 
+    def angle(self, pos_1, pos_2):
+        vect = np.array([[pos_2[0]-pos_1[0]], [pos_2[1]-pos_1[1]]])
+        angle = np.arccos(vect[0, 0]/np.linalg.norm(vect))
+        if vect[1,0] > 0:
+            angle = -angle
 
-    def straight_line(self, x_dest=200, y_dest=300):
+        return angle
+
+    def straight_line(self, x_dest=100, y_dest=100):
         """
         robot goes in a straight line to the desired position
         input : coordinates of the robot and coordinates to go
@@ -92,24 +97,33 @@ class MinimalSubscriber(Node):
         print("on est dans straight line")
         x,y = self.position_robot
         angle_robot = self.orientation_robot
-        theta = np.arctan((y_dest - y)/(x_dest - x))
+        vect_theta = np.array([[x_dest - x], [y_dest - y]])
+        theta = self.angle((x,y), (x_dest, y_dest))
 
-        err_angle =0.01  # deg ?
-        err_pos = 10 #m ?
+        err_angle =0.2  # rad
+        err_pos = 20 #pixel
         self.get_logger().info('angle cherché: "%f"' % theta) 
         self.get_logger().info('angle actu: "%f"' % angle_robot) 
 
         if (np.abs(theta - angle_robot) > err_angle):
-            self.get_logger().info('aaaaaaaaaaaaaa') 
-            self.cmd_angular.z = 0.5
+            #self.cmd_angular.z = 0.1
+            if np.sign(theta) == np.sign(angle_robot):
+                if theta > angle_robot:
+                    self.cmd_angular.z = 0.1
+                else:
+                    self.cmd_angular.z = -0.1
+            else:
+                if np.abs(theta - angle_robot) > np.pi:
+                    self.cmd_angular.z = 0.1
+                else:
+                    self.cmd_angular.z = -0.1
         else:
-            self.get_logger().info('bbbbbbbbbbbbbb') 
             self.cmd_angular.z = 0.
 
-        if (abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
-            self.cmd_linear.x = 0.3
-        else:
-            self.cmd_linear.x = 0.
+            if (abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
+                self.cmd_linear.x = 0.3
+            else:
+                self.cmd_linear.x = 0.1
 
 
 
