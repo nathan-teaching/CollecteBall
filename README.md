@@ -1,3 +1,4 @@
+[![tennis-court-foxy](https://github.com/nathan-teaching/CollecteBalle/actions/workflows/tennis_court-foxy.yaml/badge.svg)](https://github.com/nathan-teaching/CollecteBalle/actions/workflows/tennis_court-foxy.yaml)
 # Tennis Ball Collector
 
 Ceci est un template de dépôt Git pour le cours d'ingénierie système et modélisation robotique à l'ENSTA Bretagne en 2023.
@@ -61,12 +62,17 @@ Consulter le [README](tennis_court/README.md) du package pour plus d'information
 
 Le dossier 'gillou' est un package ROS contenant le robot. Lors du lancement de ce package celui-ci fait appelle au package 'tennis_court' pour générer le monde et place le robot sur le terrain.
 
-### Documents
+### Documents et liens utiles
 
 Le dossier `docs` contient tous les documents utiles au projet:
 - Des [instructions pour utiliser Git](docs/GitWorkflow_fork.md)
 - Un [Mémo pour ROS 2 et Gazebo](docs/Memo_ROS2.pdf)
 - Les [slides de la présentation Git](docs/GitPresentation.pdf)
+- Des [informations pour Github Actions](docs/GithubActions.md)
+- Des [informations sur les Normes et les Styles pour du code](docs/Linters.md)
+
+Pour controler des actionneurs : 
+- [Projet : ros2\_control](https://github.com/ros-controls)
 
 
 ### Rapports
