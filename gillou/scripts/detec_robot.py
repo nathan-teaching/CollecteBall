@@ -52,6 +52,7 @@ class MinimalSubscriber(Node):
             pos_x = int(np.sum(pixel_blanc_x)/len(pixel_blanc_x))
             pos_y = int(np.sum(pixel_blanc_y)/len(pixel_blanc_y))
             self.position_robot = (pos_x, pos_y)
+            self.get_logger().info("pos_rob"+str(self.position_robot))
         except:
             self.get_logger().info("CRASH")
             pass
