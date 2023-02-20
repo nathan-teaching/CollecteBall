@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import rclpy
-from rclpy.node import Node
 import cv2
 import numpy as np
+from rclpy.node import Node
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Vector3
 from cv_bridge import CvBridge
+
 
 class MinimalSubscriber(Node):
 
@@ -19,7 +20,7 @@ class MinimalSubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
         self.br = CvBridge()
-        self.position_robot = (0,0)
+        self.position_robot = (0, 0)
         self.publisher_ = self.create_publisher(Vector3, 'position_robot', 10)
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -34,7 +35,7 @@ class MinimalSubscriber(Node):
     def listener_callback(self, msg):
         current_frame = self.br.imgmsg_to_cv2(msg)
         current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
-        
+
         hsv = cv2.cvtColor(current_frame, cv2.COLOR_RGB2HSV)
         # on effectue un masque avec les valeurs ci-dessous recuperee sur internet
         # pour ne garder que les lignes jaunes
@@ -45,7 +46,7 @@ class MinimalSubscriber(Node):
         pixel_blanc_y = []
         for i in range(len(seg0)):
             for j in range(len(seg0[0])):
-                if seg0[i,j] == 255:
+                if seg0[i, j] == 255:
                     pixel_blanc_x.append(i)
                     pixel_blanc_y.append(j)
         pos_x = int(np.sum(pixel_blanc_x)/len(pixel_blanc_x))
