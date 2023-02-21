@@ -9,5 +9,6 @@
         "/media/antoine/Data/ENSTA/Troisieme_annee/IS/ros2_ws/install/tennis_court/lib/python3.8/site-packages",
         "/media/antoine/Data/ENSTA/Troisieme_annee/IS/ros2_ws/install/albert/lib/python3.8/site-packages",
         "/opt/ros/foxy/lib/python3.8/site-packages"
-    ]
+    ],
+    "cmake.configureOnOpen": true
 }
