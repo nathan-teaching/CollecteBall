@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import rclpy
-from rclpy.node import Node
 import cv2
 import numpy as np
+from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import Float32
 from geometry_msgs.msg import Vector3
@@ -28,9 +28,9 @@ class MinimalSubscriber(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         self.subscription2 = self.create_subscription(
-            Vector3, 
-            "/position_robot", 
-            self.listener_pos_rob_callback, 
+            Vector3,
+            '/position_robot',
+            self.listener_pos_rob_callback,
             10)
         self.subscription2
         self.position_robot = (0, 0)
@@ -39,7 +39,6 @@ class MinimalSubscriber(Node):
         msg = Float32()
         msg.data = float(self.orientation_robot)
         self.publisher_.publish(msg)
-
 
     def listener_pos_rob_callback(self, msg):
         pos_x = msg.x
@@ -50,6 +49,7 @@ class MinimalSubscriber(Node):
         try:
             current_frame = self.br.imgmsg_to_cv2(msg)
             scale = 0.3
+            
             dim = [int(current_frame.shape[1]*scale), int(current_frame.shape[0]*scale)]
             current_frame = cv2.resize(current_frame, dim, interpolation=cv2.INTER_AREA)
             current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)

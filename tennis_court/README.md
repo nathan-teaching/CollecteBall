@@ -70,3 +70,27 @@ def generate_launch_description():
   
 - `paused` (*bool*, default: false)  
   Si vrai, démarre la simulation dans l'état `pause`.
+
+## Run with HUMBLE
+
+Si vous êtes sur HUMBLE, commenter les lignes dans  *tennis_court/CMakeLists.txt* 
+
+```cmake
+# Foxy
+# ament_python_install_package(scripts/)
+# Humble
+ament_python_install_package(scripts)  
+ament_target_dependencies(gui_tennis_court_overlay
+rclcpp
+gazebo_ros
+gazebo_dev
+gazebo_msgs
+std_msgs
+Qt5Widgets
+Qt5Core
+Qt5Test
+Protobuf
+gazebo
+rosidl_default_generators
+rmw_implementation_cmake
+)
