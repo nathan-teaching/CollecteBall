@@ -96,6 +96,7 @@
 
   <link name="base_link">
     <visual>
+      <pose rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <!-- <box size="${base_length} ${base_width} ${base_height}" /> -->
         <!-- <mesh filename="file://$(find gillou)/description_inventor/robot.dae" /> -->
@@ -320,6 +321,7 @@
   <link name="rot_joint_link">
     <visual>
       <!-- <pose>10 10 10 10 10 5></pose> -->
+      <origin xyz="10 10 0" rpy="0 0 0"/>
       <geometry>
         <!-- <cylinder radius="${rot_joint_radius}" length="${rot_joint_width}" /> -->
         <mesh filename="file://$(find gillou)/src/description/description_inventor/pelle.dae" scale="0.01 0.01 0.01" />
