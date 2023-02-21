@@ -38,13 +38,13 @@ def generate_launch_description():
         
     )
 
-    #spawn_entity = launch_ros.actions.Node(
-    #package='gazebo_ros',
-    #executable='spawn_entity.py',
-    #arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
-    #output='screen'
-    #)
-#
+    spawn_entity = launch_ros.actions.Node(
+    package='gazebo_ros',
+    executable='spawn_entity.py',
+    arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
+    output='screen'
+    )
+
     robot_localization_node = launch_ros.actions.Node(
        package='robot_localization',
        executable='ekf_node',
@@ -57,13 +57,14 @@ def generate_launch_description():
     
 
     load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active',
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
              'joint_state_broadcaster'],
         output='screen'
     )
 
     load_joint_trajectory_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active', 'joint_trajectory_controller'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 
+            'joint_trajectory_controller'],
         output='screen'
     )
 
@@ -75,13 +76,29 @@ def generate_launch_description():
         #launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='True',
                                             description='Flag to enable use_sim_time'),
+
+        launch_ros.actions.Node(
+            package='gillou',
+            executable='joint_topic.py',
+            output='screen',
+            arguments=["0.5"]),
         tennis_court_launch,
         robot_state_publisher_node,
         spawn_entity,
         robot_localization_node,
         
-        load_joint_trajectory_controller,
-        load_joint_state_controller
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=spawn_entity,
+                on_exit=[load_joint_state_controller],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[load_joint_trajectory_controller],
+            )
+        )
      
       
     ])

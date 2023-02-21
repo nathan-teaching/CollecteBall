@@ -13,9 +13,6 @@ joint_trajectory_controller:
     joints:
       - rot_joint_joint
 
-   
-    interface_name: position
-
     command_interfaces:
       - position
 
@@ -23,4 +20,17 @@ joint_trajectory_controller:
       - position
       - velocity
 
+
+
+
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+
+    allow_partial_joints_goal: true
+    open_loop_control: true
+    
+    
   
+    
+   
+        
