@@ -49,14 +49,14 @@ class MinimalSubscriber(Node):
             pixel_blanc_y = []
             for i in range(len(seg0)):
                 for j in range(len(seg0[0])):
-                    if seg0[i,j] == 255:
+                    if seg0[i, j] == 255:
                         pixel_blanc_x.append(i)
                         pixel_blanc_y.append(j)
             pos_x = int(np.sum(pixel_blanc_x)/len(pixel_blanc_x))
             pos_y = int(np.sum(pixel_blanc_y)/len(pixel_blanc_y))
             self.position_robot = (pos_x, pos_y)
         except:
-            self.get_logger().info("CRASH")
+            self.get_logger().info('CRASH')
             pass
 
 
