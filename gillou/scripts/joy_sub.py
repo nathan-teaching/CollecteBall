@@ -6,6 +6,8 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 
+# ros2 launch teleop_twist_joy teleop-launch.py joy_config:='ps4'
+
 
 class MinimalSubscriber(Node):
 
@@ -19,7 +21,8 @@ class MinimalSubscriber(Node):
         self.subscription_joy  # prevent unused variable warning
         self.vit_x = 0
         self.rot_z = 0
-        # self.publisher_ = self.create_publisher(Vector3, 'position_robot', 10)
+        # self.publisher_ = self.create_publisher(Vector3, 'position_robot',
+        #  10)
         # timer_period = 0.1  # seconds
         # self.timer = self.create_timer(timer_period, self.timer_callback)
         self.publisher_joy = self.create_publisher(Twist, '/demo/cmd_vel', 10)
@@ -37,12 +40,17 @@ class MinimalSubscriber(Node):
         # print('a')
 
     def listener_joy_callback(self, msg):
-        if self.published :
-            self.vit_x = 0.9 * self.vit_x + 0.1 * msg.axes[1] 
-            self.rot_z = 0.9 * self.rot_z + 0.1 * msg.axes[0] * np.sign(msg.axes[1])
+        if self.published:
+            self.vit_x = 0.9 * self.vit_x + 0.1 * msg.axes[1]
+            if msg.axes[1] != 0:
+                self.rot_z = 0.9 * self.rot_z +\
+                  0.1 * msg.axes[0] * np.sign(msg.axes[1])
+            else:
+                self.rot_z = 0.9 * self.rot_z + 0.1 * msg.axes[0]
             self.published = False
         # print(self.vit_x, self.rot_z)
         # print("bbb")
+
 
 def main(args=None):
     rclpy.init(args=args)
