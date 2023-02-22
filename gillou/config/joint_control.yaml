@@ -13,9 +13,6 @@ joint_trajectory_controller:
     joints:
       - rot_joint_joint
 
-   
-    interface_name: position
-
     command_interfaces:
       - position
 
@@ -23,8 +20,14 @@ joint_trajectory_controller:
       - position
       - velocity
 
-<<<<<<< HEAD:gillou/config/joint_control.yaml
-  
-=======
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
 
->>>>>>> 17f9372b11a7001e58022f9895c6e1e89a324b99:gillou/config/joint_control.yalm
+    allow_partial_joints_goal: true
+    open_loop_control: true
+    
+    
+  
+    
+   
+

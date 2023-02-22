@@ -61,13 +61,14 @@ def generate_launch_description():
     
 
     load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active',
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
              'joint_state_broadcaster'],
         output='screen'
     )
 
     load_joint_trajectory_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active', 'joint_trajectory_controller'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 
+            'joint_trajectory_controller'],
         output='screen'
     )
     load_joint_state_controller = launch.actions.ExecuteProcess(
@@ -97,6 +98,19 @@ launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_p
         robot_localization_node,
 
 
-        load_joint_trajectory_controller,
-        load_joint_state_controller
+        
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=spawn_entity,
+                on_exit=[load_joint_state_controller],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[load_joint_trajectory_controller],
+            )
+        )
+     
     ])
+

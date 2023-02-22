@@ -90,8 +90,8 @@ class MinimalSubscriber(Node):
 
     def straight_line(self, x_dest=500, y_dest=300):
         """
-
         Robot goes in a straight line to the desired position.
+
         input : coordinates of the robot and coordinates to go
         output : None, the robot goes to the desired position
         """
@@ -145,9 +145,7 @@ class MinimalSubscriber(Node):
 
 
     def ajout_waypoint(self):
-        """Cette fonction permet d'ajouter ou de modifier les waypoints que doit suivre le robot, elle va modifier 
-        self.waypoints mais ne rien renvoyer
-        """
+        """Cette fonction permet d'ajouter ou de modifier les waypoints que doit suivre le robot, elle va modifier self.waypoints mais ne rien renvoyer."""
         # A REVOIR, NE MARCHE PAS BIEN
         if self.lis_balls != []:
             lis_balls = copy.deepcopy(self.lis_balls)
@@ -161,7 +159,8 @@ class MinimalSubscriber(Node):
 
 
     def passage_filet(self):
-        """Cette fonction renvoie la position du point au niveau du filet par lequel le robot doit passer pour changer de côté
+        """
+        Cette fonction renvoie la position du point au niveau du filet par lequel le robot doit passer pour changer de côté.
 
         Returns:
             tuple(int,int): le point sur le côté du filet par lequel le robot doit passer
