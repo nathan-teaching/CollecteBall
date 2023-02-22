@@ -98,7 +98,7 @@
       <geometry>
 
         <box size="${base_length} ${base_width} ${base_height}"/>
-        <mesh filename="package://gillou/description_inventor/robot.dae"/>
+        <!--<mesh filename="package://gillou/description_inventor/robot.dae"/>-->
       </geometry>
    <!--   <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -209,8 +209,8 @@
     <visual>
       <geometry>
 
-       <!--<cylinder radius="${hook_radius}" length="${hook_width}"/>-->
-       <mesh filename="package://gillou/description_inventor/pelle.dae"/>
+       <cylinder radius="${hook_radius}" length="${hook_width}"/>
+       <!--<mesh filename="package://gillou/description_inventor/pelle.dae"/>-->
       </geometry>
     <!--  <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -320,7 +320,7 @@
       <origin xyz="0.26 -0.135 -0.15" rpy="0 3.14 -1.48"/>
       <geometry>
         <!--<cylinder radius="${rot_joint_radius}" length="${rot_joint_width}" />-->
-        <mesh filename="file://$(find gillou)/src/description/description_inventor/pelle.dae" scale="0.01 0.01 0.01" />
+        <!--<mesh filename="file://$(find gillou)/src/description/description_inventor/pelle.dae" scale="0.01 0.01 0.01" />-->
 
       </geometry>
       <material name="Cyan">
