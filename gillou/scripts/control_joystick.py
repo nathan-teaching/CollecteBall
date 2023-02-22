@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import rclpy
 import numpy as np
-from rclpy.node import Node
+import rclpy
 from geometry_msgs.msg import Twist
-from pyjoystick.sdl2 import Joystick, Key, run_event_loop
+from rclpy.node import Node
+from pyjoystick.sdl2 import Key, run_event_loop
 
 
 class MinimalPublisher(Node):
@@ -62,6 +62,7 @@ def key_received(key):
         msg.angular.z = 0.
     publisher.publisher_.publish(msg)
     rclpy.spin_once(publisher, timeout_sec=0)
+
 
 if __name__ == '__main__':
     rclpy.init(args=None)
