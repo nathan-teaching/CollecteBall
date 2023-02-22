@@ -110,25 +110,26 @@ class MinimalSubscriber(Node):
         # print(self.lis_balls)
 
     def update_lis_balls(self, new_lis):
-        for i in range(len(self.lis_balls)):
-            print("coucou")
-            old_ball = self.lis_balls[i]
-            dist = np.inf
-            new_coords = [0, 0]
+        if len(self.lis_balls) <= len(new_lis):
+            for i in range(len(self.lis_balls)):
+                print("coucou")
+                old_ball = self.lis_balls[i]
+                dist = np.inf
+                new_coords = [0, 0]
+                for new_ball in new_lis:
+                    new_dist = np.sqrt((old_ball[0] - new_ball[0])**2 + (old_ball[1] - new_ball[1])**2)
+                    if new_dist < dist:
+                        print("nouvelle dist : ", new_dist)
+                        if (not (new_ball in self.lis_balls)) or new_dist == 0:
+                            dist = new_dist
+                            new_coords = new_ball
+                # assert dist < 100
+                self.lis_balls[i] = new_coords
+            while [0, 0] in self.lis_balls:
+                self.lis_balls.remove([0, 0])
             for new_ball in new_lis:
-                new_dist = np.sqrt((old_ball[0] - new_ball[0])**2 + (old_ball[1] - new_ball[1])**2)
-                if new_dist < dist:
-                    print("nouvelle dist : ", new_dist)
-                    if (not (new_ball in self.lis_balls)) or new_dist == 0:
-                        dist = new_dist
-                        new_coords = new_ball
-            assert dist < 100
-            self.lis_balls[i] = new_coords
-        while [0, 0] in self.lis_balls:
-            self.lis_balls.remove([0, 0])
-        for new_ball in new_lis:
-            if not (new_ball in self.lis_balls):
-                self.lis_balls.append(new_ball)
+                if not (new_ball in self.lis_balls):
+                    self.lis_balls.append(new_ball)
 
 
 def main(args=None):
