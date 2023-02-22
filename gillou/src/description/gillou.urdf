@@ -94,12 +94,15 @@
 
   <link name="base_link">
     <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="${base_length} ${base_width} ${base_height}"/>
+
+        <!--<box size="${base_length} ${base_width} ${base_height}"/>-->
+        <mesh filename="package://gillou/description_inventor/robot.dae"/>
       </geometry>
-      <material name="Cyan">
+   <!--   <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material>-->
     </visual>
     <collision>
       <geometry>
@@ -205,11 +208,14 @@
 <link name="first_hook_link">
     <visual>
       <geometry>
-       <cylinder radius="${hook_radius}" length="${hook_width}"/>
+
+       <!--<cylinder radius="${hook_radius}" length="${hook_width}"/>-->
+       <mesh filename="package://gillou/description_inventor/pelle.dae"/>
       </geometry>
-      <material name="Cyan">
+    <!--  <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material> -->
+
     </visual>
     <collision>
       <geometry>
@@ -278,7 +284,11 @@
 <link name="door_link">
     <visual>
       <geometry>
-        <box size="${door_length} ${door_width} ${door_height}"/>
+
+        <box size="${door_length} ${door_width} ${door_height}" />
+        <!-- <mesh filename="file://$(find gillou)/src/description/pelle.dae" scale="0.01 0.01 0.01"
+        /> -->
+
       </geometry>
       <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -305,8 +315,13 @@
 <!-- Robot Rot Joint -->
 <link name="rot_joint_link">
     <visual>
+
+      <!-- <pose>10 10 10 10 10 5></pose> -->
+      <origin xyz="0.26 -0.135 -0.15" rpy="0 3.14 -1.48"/>
       <geometry>
-       <cylinder radius="${rot_joint_radius}" length="${rot_joint_width}"/>
+        <!--<cylinder radius="${rot_joint_radius}" length="${rot_joint_width}" />-->
+        <mesh filename="file://$(find gillou)/src/description/description_inventor/pelle.dae" scale="0.01 0.01 0.01" />
+
       </geometry>
       <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -320,6 +335,7 @@
 
     <xacro:cylinder_inertia m="0.01" r="${rot_joint_radius}" h="${rot_joint_width}"/>
   </link>
+
   
  <joint name="rot_joint_joint" type="fixed">
   <origin xyz="0 0 0" rpy="${pi/2} -0.5 0"/>
@@ -331,6 +347,7 @@
 </joint>
 <!-- Gazebo ros control -->
 <ros2_control name="GazeboSystem" type="system">
+
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>

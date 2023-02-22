@@ -10,9 +10,12 @@ from cv_bridge import CvBridge
 
 
 def det_lis_balls(img, H=60, tolerance=30):
+    # safe zone : H=30
     img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     img_comp = img[:, :, 0]
     coord_x, coord_y = np.array(np.where(np.abs(img_comp - H) <= tolerance))
+    blank = np.zeros((img.shape))
+
     lis_pixels = []
     if len(coord_x) == 0:
         return lis_pixels
@@ -21,9 +24,10 @@ def det_lis_balls(img, H=60, tolerance=30):
             coord = (coord_x[i], coord_y[i])
             already_in_lis = False
             for pix in lis_pixels:
-                if np.abs(coord[0] - pix[0]) <= 10 or np.abs(coord[1] - pix[1]) <= 10:
+                if np.abs(coord[0] - pix[0]) <= 10 or\
+                 np.abs(coord[1] - pix[1]) <= 10:
                     already_in_lis = True
-            if not(already_in_lis):
+            if not (already_in_lis):
                 lis_pixels.append(coord)
         return lis_pixels
 
@@ -41,7 +45,8 @@ class MinimalSubscriber(Node):
         self.br = CvBridge()
         self.lis_balls = []
 
-        self.publisher_ = self.create_publisher(Int16MultiArray, 'positions_balles', 10)
+        self.publisher_ =\
+            self.create_publisher(Int16MultiArray, 'positions_balles', 10)
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
@@ -73,30 +78,43 @@ class MinimalSubscriber(Node):
             for new_ball in new_lis:
                 paired = False
                 for old_ball in self.lis_balls:
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or 
-                        np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+<<<<<<< HEAD
+                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+=======
+                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or\
+                      np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+>>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
                         paired = True
                 if not paired:
                     coords_new_ball.append(new_ball)
             for old_ball in self.lis_balls:
                 paired = False
                 for new_ball in new_lis:
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or 
-                        np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+<<<<<<< HEAD
+                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+=======
+                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or\
+                      np.abs(new_ball[1] - old_ball[0][1]) <= 10:
+>>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
                         paired = True
                 if not paired:
                     coords_old_ball.append(old_ball)
-            if len(coords_new_ball) == len(coords_old_ball): 
+            if len(coords_new_ball) == len(coords_old_ball):
                 for i in range(len(coords_old_ball)):
                     coord = coords_old_ball[i]
-                    self.lis_balls[self.lis_balls.index(coord)] = (coords_new_ball[i], coord[1])
+                    self.lis_balls[self.lis_balls.index(coord)] =\
+                        (coords_new_ball[i], coord[1])
 
     def add_balls(self, new_lis):
         for new_ball in new_lis:
             in_lis = False
             for ball in self.lis_balls:
-                if np.abs(new_ball[0] - ball[0][0]) <= 10 or 
-                    np.abs(new_ball[1] - ball[0][1]) <= 10:
+<<<<<<< HEAD
+                if np.abs(new_ball[0] - ball[0][0]) <= 10 or np.abs(new_ball[1] - ball[0][1]) <= 10:
+=======
+                if np.abs(new_ball[0] - ball[0][0]) <= 10 or\
+                  np.abs(new_ball[1] - ball[0][1]) <= 10:
+>>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
                     in_lis = True
             if not in_lis:
                 self.lis_balls.append((new_ball, len(self.lis_balls)))

@@ -20,9 +20,6 @@ joint_trajectory_controller:
       - position
       - velocity
 
-
-
-
     state_publish_rate: 50.0
     action_monitor_rate: 20.0
 
@@ -33,4 +30,4 @@ joint_trajectory_controller:
   
     
    
-        
+
