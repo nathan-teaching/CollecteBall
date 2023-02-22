@@ -94,12 +94,15 @@
 
   <link name="base_link">
     <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
+
         <box size="${base_length} ${base_width} ${base_height}"/>
+        <mesh filename="package://gillou/description_inventor/robot.dae"/>
       </geometry>
-      <material name="Cyan">
+   <!--   <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material>-->
     </visual>
     <collision>
       <geometry>
@@ -123,7 +126,7 @@
     <visual>  
     <material>  
       <ambient>0.  0.4  0. 1.0</ambient>  
-      <diffuse>0.  0.4 0. 1.0</diffuse>  
+      <diffuse>0.  0. 0. 1.0</diffuse>  
       <specular>0.  0.4  0. 1.0</specular>  
       <emissive>0.  0.4 0. 1.0</emissive>  
     </material>  
@@ -205,11 +208,14 @@
 <link name="first_hook_link">
     <visual>
       <geometry>
-       <cylinder radius="${hook_radius}" length="${hook_width}"/>
+
+       <!--<cylinder radius="${hook_radius}" length="${hook_width}"/>-->
+       <mesh filename="package://gillou/description_inventor/pelle.dae"/>
       </geometry>
-      <material name="Cyan">
+    <!--  <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      </material> -->
+
     </visual>
     <collision>
       <geometry>
@@ -278,7 +284,11 @@
 <link name="door_link">
     <visual>
       <geometry>
-        <box size="${door_length} ${door_width} ${door_height}"/>
+
+        <box size="${door_length} ${door_width} ${door_height}" />
+        <!-- <mesh filename="file://$(find gillou)/src/description/pelle.dae" scale="0.01 0.01 0.01"
+        /> -->
+
       </geometry>
       <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -305,8 +315,13 @@
 <!-- Robot Rot Joint -->
 <link name="rot_joint_link">
     <visual>
+
+      <!-- <pose>10 10 10 10 10 5></pose> -->
+      <origin xyz="0.26 -0.135 -0.15" rpy="0 3.14 -1.48"/>
       <geometry>
-       <cylinder radius="${rot_joint_radius}" length="${rot_joint_width}"/>
+        <!--<cylinder radius="${rot_joint_radius}" length="${rot_joint_width}" />-->
+        <mesh filename="file://$(find gillou)/src/description/description_inventor/pelle.dae" scale="0.01 0.01 0.01" />
+
       </geometry>
       <material name="Cyan">
         <color rgba="0 1.0 1.0 1.0"/>
@@ -320,19 +335,19 @@
 
     <xacro:cylinder_inertia m="0.01" r="${rot_joint_radius}" h="${rot_joint_width}"/>
   </link>
+
   
- <joint name="rot_joint_joint" type="revolute">
-  <origin xyz="0.02 0 0.11" rpy="${pi/2} -0.5 0"/>
-      <parent link="base_link"/>
+ <joint name="rot_joint_joint" type="fixed">
+  <origin xyz="0 0 0" rpy="${pi/2} -0.5 0"/>
+      <parent link="pelle_l_link"/>
       <child link="rot_joint_link"/>
-      <axis xyz="0 0 1"/>
-   <limit effort="100" velocity="30" upper="3.14" lower="-3.14"/>
-    <dynamics damping="0.7"/>
+      
       
       
 </joint>
 <!-- Gazebo ros control -->
 <ros2_control name="GazeboSystem" type="system">
+
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
@@ -391,7 +406,27 @@
   <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
   <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
   
+<!-- Wheels-pelle -->
 
+   <xacro:macro name="wheel_pelle" params="prefix x_reflect y_reflect">
+    <link name="${prefix}_link">
+      
+          
+      <xacro:cylinder_inertia m="0.1" r="${wheel_radius}" h="${wheel_width}"/>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.10 0 0.1" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:wheel_pelle prefix="pelle_l" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel_pelle prefix="pelle_r" x_reflect="-1" y_reflect="-1" />
+  
  <!-- Caster Wheel -->
   <gazebo reference="front_caster_l">
     <visual>  
@@ -587,6 +622,33 @@
   </plugin>
 </gazebo>
 
+<gazebo>
+  <plugin name='diff_drive1' filename='libgazebo_ros_diff_drive.so'>
+    <ros>
+      <namespace>/demo_pelle</namespace>
+    </ros>
+
+    <!-- wheels -->
+    <left_joint>pelle_l_joint</left_joint>
+    <right_joint>pelle_r_joint</right_joint>
+
+    <!-- kinematics -->
+    <wheel_separation>0.45</wheel_separation>
+    <wheel_diameter>0.2</wheel_diameter>
+
+    <!-- limits -->
+    <max_wheel_torque>6</max_wheel_torque>
+    <max_wheel_acceleration>2.0</max_wheel_acceleration>
+
+    <!-- output -->
+    <publish_odom>true</publish_odom>
+    <publish_odom_tf>false</publish_odom_tf>
+    <publish_wheel_tf>true</publish_wheel_tf>
+
+    <odometry_frame>odom</odometry_frame>
+    <robot_base_frame>base_link</robot_base_frame>
+  </plugin>
+</gazebo>
 
 
 <link name="camera_link">
