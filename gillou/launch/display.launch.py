@@ -80,7 +80,7 @@ def generate_launch_description():
 
 
     return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
+launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
                                                 description='Absolute path to robot urdf file'),
 
         # launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s',
@@ -99,4 +99,4 @@ def generate_launch_description():
 
         load_joint_trajectory_controller,
         load_joint_state_controller
-
+    ])
