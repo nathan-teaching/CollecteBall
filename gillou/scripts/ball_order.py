@@ -197,8 +197,10 @@ class MinimalSubscriber(Node):
         """
         Cette fonction renvoie la position du point au niveau du filet par lequel le robot doit passer pour changer de côté.
 
-        Returns:
-            tuple(int,int): le point sur le côté du filet par lequel le robot doit passer
+        Returns
+        -------
+            tuple(int,int): le point sur le côté du filet par lequel le robot doit passer.
+        
         """
         x = self.position_robot[0]
         y = self.position_robot[1]
@@ -222,6 +224,7 @@ class MinimalSubscriber(Node):
 
     def min_distance(self, x, y, list_coords):
         """
+        Cette fonction renvoie la distance minimal d'un point (x,y) à une liste de points.
 
         Input : x and y coordinates, a list of coordinates.
         list_coords = [[x0, y0], [x1, y1], ....]
@@ -238,6 +241,7 @@ class MinimalSubscriber(Node):
 
     def oldest(self, ball):
         """
+        Cette fonction renvoie le temps d'une balle.
 
         Input: ball [x,y,time].
         output: time
@@ -249,26 +253,20 @@ class MinimalSubscriber(Node):
         # Careful ! lis_balls will be modified, therefore must not be the original one, 
         # rather a copy
         """
-
-        Determines the path for a robot, given a destination ball, in order
-        to grab as many 
-        balls as possible in the way.
+        Determine the path for a robot, given a destination ball, in order to grab as many balls as possible in the way.
 
         Args:
-            lis_balls (int[3][]): list of the balls that could be in the
-            trajectory of the 
-            robot
-            ball_obj (int[3]): the destination ball that will be reached
-            eventually
+        ----
+            lis_balls (int[3][]): list of the balls that could be in the trajectory of the robot
+            ball_obj (int[3]): the destination ball that will be reached eventually
             x_robot (int): x coordinate of the robot
             y_robot (int): y coordinate of the robot
-            radius (float): opening of the way. The bigger it is, the more
-            likely the robot 
-            is to find a ball to grab in the way.
-
-        Returns:
-            int[2][]: the list of the coordinates of the balls that can be
-            grabbed in the way
+            radius (float): opening of the way. The bigger it is, the more likely the robot is to find a ball to grab in the way.
+        
+        Returns
+        -------
+            int[2][]: the list of the coordinates of the balls that can be grabbed in the way
+        
         """
         path = [(ball_obj[0], ball_obj[1])]
         for ball in lis_balls:
@@ -283,11 +281,10 @@ class MinimalSubscriber(Node):
 
     def ball_in_traj(self, ball, x_robot, y_robot, x_dest, y_dest, radius):
         """
+        Check wether a ball ball is within a rectangle formed by the segment between robot and dist and with a width 2 * radius.
 
-        Checks wether a ball ball is within a rectangle formed by the segment between robot 
-        and dist and with a width 2 * radius.
-
-        Args:
+        Args
+        ----
             ball (int[3]): the coordinates and the order of the ball
             x_robot (int): x coordinate of the robot
             y_robot (int): y coordinate of the robot
@@ -295,8 +292,10 @@ class MinimalSubscriber(Node):
             y_dest (int): y coordinate of the objective ball
             radius (float): the semi-width of the rectangle
 
-        Returns:
+        Returns
+        -------
             bool: whether the ball is in the ractangle or not
+
         """
         complex_vect = complex(x_dest - x_robot, y_dest - x_dest)
 
@@ -333,7 +332,8 @@ class MinimalSubscriber(Node):
 
     def in_square(self, coords):
         """
-
+        Cette fonction indique si le robot est sur la gauche ou la droite du filet.
+        
         Input: coordinates [x,y].
         output: Side of the net, "Left" or "Right"
         """
@@ -353,6 +353,7 @@ class MinimalSubscriber(Node):
 
     def ball_to_fetch(self, ball_list, radius, objective='zone'):
         """
+        Cette fonction renvoie une liste de balle à attraper.
 
         Input : list of balls with coordinates and time falling, a radius to search around,
         the objective.
@@ -382,6 +383,7 @@ class MinimalSubscriber(Node):
 
     def goto(self, x_robot, y_robot, x_dest, y_dest):
         """
+        Pas utilisée.
 
         Input : coordinates of the robot and coordinates to go.
         output : None, the robot goes to the desired position
