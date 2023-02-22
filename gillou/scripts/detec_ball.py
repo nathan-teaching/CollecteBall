@@ -116,7 +116,6 @@ class MinimalSubscriber(Node):
             dist = np.inf
             new_coords = [0, 0]
             for new_ball in new_lis:
-<<<<<<< HEAD
                 new_dist = np.sqrt((old_ball[0] - new_ball[0])**2 + (old_ball[1] - new_ball[1])**2)
                 if new_dist < dist:
                     print("nouvelle dist : ", new_dist)
@@ -130,50 +129,6 @@ class MinimalSubscriber(Node):
         for new_ball in new_lis:
             if not (new_ball in self.lis_balls):
                 self.lis_balls.append(new_ball)
-=======
-                paired = False
-                for old_ball in self.lis_balls:
-<<<<<<< HEAD
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or np.abs(new_ball[1] - old_ball[0][1]) <= 10:
-=======
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or\
-                      np.abs(new_ball[1] - old_ball[0][1]) <= 10:
->>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
-                        paired = True
-                if not paired:
-                    coords_new_ball.append(new_ball)
-            for old_ball in self.lis_balls:
-                paired = False
-                for new_ball in new_lis:
-<<<<<<< HEAD
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or np.abs(new_ball[1] - old_ball[0][1]) <= 10:
-=======
-                    if np.abs(new_ball[0] - old_ball[0][0]) <= 10 or\
-                      np.abs(new_ball[1] - old_ball[0][1]) <= 10:
->>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
-                        paired = True
-                if not paired:
-                    coords_old_ball.append(old_ball)
-            if len(coords_new_ball) == len(coords_old_ball):
-                for i in range(len(coords_old_ball)):
-                    coord = coords_old_ball[i]
-                    self.lis_balls[self.lis_balls.index(coord)] =\
-                        (coords_new_ball[i], coord[1])
-
-    def add_balls(self, new_lis):
-        for new_ball in new_lis:
-            in_lis = False
-            for ball in self.lis_balls:
-<<<<<<< HEAD
-                if np.abs(new_ball[0] - ball[0][0]) <= 10 or np.abs(new_ball[1] - ball[0][1]) <= 10:
-=======
-                if np.abs(new_ball[0] - ball[0][0]) <= 10 or\
-                  np.abs(new_ball[1] - ball[0][1]) <= 10:
->>>>>>> dd0196abb6ed648945ad048d14d8572b6851cdfd
-                    in_lis = True
-            if not in_lis:
-                self.lis_balls.append((new_ball, len(self.lis_balls)))
->>>>>>> f0274ea8d32a302d0413841f218dc7b9bd22c9cd
 
 
 def main(args=None):
