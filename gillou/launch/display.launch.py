@@ -41,12 +41,12 @@ def generate_launch_description():
     )
 
     spawn_entity = launch_ros.actions.Node(
-    package='gazebo_ros',
-    executable='spawn_entity.py',
-    arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
-    output='screen'
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=['-entity', 'gillou_bot', '-topic', 'robot_description','-x','1','-y','1', '-z', '1'],
+        output='screen'
     )
-
+#
     robot_localization_node = launch_ros.actions.Node(
        package='robot_localization',
        executable='ekf_node',
@@ -56,6 +56,9 @@ def generate_launch_description():
                     {'use_sim_time': LaunchConfiguration('use_sim_time')}]
     )
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+
+
+    
 
     load_joint_state_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active',
@@ -67,6 +70,13 @@ def generate_launch_description():
         cmd=['ros2', 'control', 'load_start_controller', '--set-state', 'active', 'joint_trajectory_controller'],
         output='screen'
     )
+    load_joint_state_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_state_broadcaster'],
+        output='screen')
+
+    load_joint_trajectory_controller = launch.actions.ExecuteProcess(
+        cmd=['ros2','control','load_controller','--set-state', 'start','joint_trajectory_controller'],
+        output='screen')
 
 
     return launch.LaunchDescription([
@@ -79,13 +89,14 @@ def generate_launch_description():
         #                                   output='screen'),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='True',
                                                 description='Flag to enable use_sim_time'),
+
+
         tennis_court_launch,
         robot_state_publisher_node,
         spawn_entity,
         robot_localization_node,
 
+
         load_joint_trajectory_controller,
         load_joint_state_controller
 
-
-    ])
