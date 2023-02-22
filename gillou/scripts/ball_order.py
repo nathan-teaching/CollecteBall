@@ -2,11 +2,11 @@
 import cmath
 
 import rclpy
+import cv2
 import numpy as np
 from rclpy.node import Node
 from std_msgs.msg import Int16MultiArray, Float32
 from geometry_msgs.msg import Vector3, Twist
-
 
 
 class MinimalSubscriber(Node):
@@ -25,7 +25,7 @@ class MinimalSubscriber(Node):
             '/position_robot',
             self.listener_pos_rob_callback,
             10)
-        self.subscription2 # prevent unused variable warning
+        self.subscription2  # prevent unused variable warning
 
         self.subscription3 = self.create_subscription(
             Float32,
@@ -50,12 +50,47 @@ class MinimalSubscriber(Node):
         self.cmd_linear = Vector3()  # must be a Vector3
         self.cmd_angular = Vector3()  # must be a Vector3
         # TODO find the correct coordinates
+        self.coords_recup = False
         self.coords_zone = [[-100, -100], [100, 100]]
+        self.coords_entry = [[-100, -100], [100, 100]]
         self.coords_net = [[-100, 0], [100, 0]]
         self.net_sides = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
         self.lis_balls = []
         print('coucou on est dans ball_order')
         self.get_logger().info('Ball order publie')
+
+    def detect_zone(self, msg):
+        current_frame = self.br.imgmsg_to_cv2(msg)
+        current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
+        hsv = cv2.cvtColor(current_frame, cv2.COLOR_RGB2HSV)
+        # on effectue un masque avec les valeurs ci-dessous recuperee sur internet
+        # pour ne garder que les lignes jaunes
+        lower = np.array([100, 40, 90], dtype=np.uint8)
+        upper = np.array([110, 255, 255], dtype=np.uint8)
+        seg0 = cv2.inRange(hsv, lower, upper)
+        kernel = np.ones((5, 5), np.uint8)
+        seg0 = cv2.morphologyEx(seg0, cv2.MORPH_OPEN, kernel)
+        # cv2.imshow("test", seg0)
+        # cv2.waitKey(1)
+        coord_x, coord_y = np.array(np.where(seg0 == 255))
+        # print("pixels des safe zones : ", np.array([coord_x, coord_y]))
+        safe_l_x, safe_l_y = [], []
+        safe_r_x, safe_r_y = [], []
+        for i in range(len(coord_y)):
+            if coord_y[i] <= 650:
+                safe_l_x.append(coord_x[i])
+                safe_l_y.append(coord_y[i])
+            else:
+                safe_r_x.append(coord_x[i])
+                safe_r_y.append(coord_y[i])
+        safe_l_x, safe_l_y = np.array(safe_l_x), np.array(safe_l_y)
+        safe_r_x, safe_r_y = np.array(safe_r_x), np.array(safe_r_y)
+        coord_l_center = [np.mean(safe_l_x), np.mean(safe_l_y)]
+        coord_r_center = [np.mean(safe_r_x), np.mean(safe_r_y)]
+        coord_l_entry = [np.max(safe_l_x), np.max(safe_l_y)]
+        coord_r_entry = [np.min(safe_r_x), np.min(safe_r_y)]
+        self.coords_zone = [coord_l_center, coord_r_center]
+        self.coords_entry = [coord_l_entry, coord_r_entry]
 
     def timer_cmd_callback(self):
         msg = Twist()
@@ -84,7 +119,8 @@ class MinimalSubscriber(Node):
     #     self.cmd_linear = msg.linear
     #     self.cmd_angular = msg.angular
 
-    # TODO control the orientation of the robot and put it into a straight line motion
+    # TODO control the orientation of the robot and put it into
+    #  a straight line motion
 
     def angle(self, pos_1, pos_2):
         vect = np.array([[pos_2[0]-pos_1[0]], [pos_2[1]-pos_1[1]]])
@@ -106,15 +142,15 @@ class MinimalSubscriber(Node):
         x, y = self.position_robot
         angle_robot = self.orientation_robot
         vect_theta = np.array([[x_dest - x], [y_dest - y]])
-        theta = self.angle((x,y), (x_dest, y_dest))
+        theta = self.angle((x, y), (x_dest, y_dest))
 
-        err_angle =0.2  # rad
-        err_pos = 20 #pixel
+        err_angle = 0.2  # rad
+        err_pos = 20  # pixel
         self.get_logger().info('angle cherché: "%f"' % theta) 
         self.get_logger().info('angle actu: "%f"' % angle_robot) 
 
         if (np.abs(theta - angle_robot) > err_angle):
-            #self.cmd_angular.z = 0.1
+            # self.cmd_angular.z = 0.1
             if np.sign(theta) == np.sign(angle_robot):
                 if theta > angle_robot:
                     self.cmd_angular.z = 0.1
@@ -128,12 +164,12 @@ class MinimalSubscriber(Node):
         else:
             self.cmd_angular.z = 0.
 
-            if (abs(x - x_dest)>=err_pos or abs(y - y_dest)>=err_pos):
+            if (abs(x - x_dest) >= err_pos or abs(y - y_dest) >= err_pos):
                 self.cmd_linear.x = 0.3
             else:
                 self.cmd_linear.x = 0.1
 
-        if (abs(x - x_dest)>= err_pos or abs(y - y_dest)>= err_pos):
+        if (abs(x - x_dest) >= err_pos or abs(y - y_dest) >= err_pos):
             self.cmd_linear.x = 1.
 
     def min_distance(self, x, y, list_coords):
@@ -141,7 +177,8 @@ class MinimalSubscriber(Node):
 
         Input : x and y coordinates, a list of coordinates.
         list_coords = [[x0, y0], [x1, y1], ....]
-        output : x and y coordinates in list_coords for which the distance is minimal
+        output : x and y coordinates in list_coords for which 
+        the distance is minimal
         """
         d = []
         for c in list_coords:
@@ -159,24 +196,30 @@ class MinimalSubscriber(Node):
         return ball[2]
 
     def path_balls(self, lis_balls, ball_obj, x_robot, y_robot, radius):
-        # Careful ! lis_balls will be modified, therefore must not be the original one, 
+        # Careful ! lis_balls will be modified, therefore must not 
+        # be the original one, 
         # rather a copy
         """
 
-        Determines the path for a robot, given a destination ball, in order to grab as many 
+        Determines the path for a robot, given a destination ball, in order
+        to grab as many 
         balls as possible in the way.
 
         Args:
-            lis_balls (int[3][]): list of the balls that could be in the trajectory of the 
+            lis_balls (int[3][]): list of the balls that could be in the
+            trajectory of the 
             robot
-            ball_obj (int[3]): the destination ball that will be reached eventually
+            ball_obj (int[3]): the destination ball that will be reached
+            eventually
             x_robot (int): x coordinate of the robot
             y_robot (int): y coordinate of the robot
-            radius (float): opening of the way. The bigger it is, the more likely the robot 
+            radius (float): opening of the way. The bigger it is, the more
+            likely the robot 
             is to find a ball to grab in the way.
 
         Returns:
-            int[2][]: the list of the coordinates of the balls that can be grabbed in the way
+            int[2][]: the list of the coordinates of the balls that can be
+            grabbed in the way
         """
         path = [(ball_obj[0], ball_obj[1])]
         for ball in lis_balls:
