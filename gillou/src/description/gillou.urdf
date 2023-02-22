@@ -345,32 +345,7 @@
       
       
 </joint>
-<!-- Gazebo ros control -->
-<ros2_control name="GazeboSystem" type="system">
 
-    <hardware>
-      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-    </hardware>
-    <joint name="rot_joint_joint">
-      <command_interface name="position">
-        <param name="min">-15</param>
-        <param name="max">15</param>
-      </command_interface>
-      <state_interface name="position">
-        <param name="initial_value">1.0</param>
-      </state_interface>
-      <state_interface name="velocity"/>
-      
-    </joint>
-  </ros2_control>
-
-
-<gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-
-      <parameters>$(find gillou)/config/joint_control.yaml</parameters>
-    </plugin>
-</gazebo>
 
 <!-- Wheels -->
 

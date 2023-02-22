@@ -4,7 +4,7 @@ import launch
 import launch_ros
 from launch.substitutions import Command, LaunchConfiguration
 from launch.actions import ExecuteProcess, RegisterEventHandler
-
+from launch_ros.actions import Node
 from launch.event_handlers import OnProcessExit
 from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription
@@ -40,6 +40,8 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
+  
+
     spawn_entity = launch_ros.actions.Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -60,24 +62,6 @@ def generate_launch_description():
 
     
 
-    load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
-             'joint_state_broadcaster'],
-        output='screen'
-    )
-
-    load_joint_trajectory_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 
-            'joint_trajectory_controller'],
-        output='screen'
-    )
-    load_joint_state_controller = launch.actions.ExecuteProcess(
-        cmd=['ros2','control','load_controller','--set-state', 'start','joint_state_broadcaster'],
-        output='screen')
-
-    load_joint_trajectory_controller = launch.actions.ExecuteProcess(
-        cmd=['ros2','control','load_controller','--set-state', 'start','joint_trajectory_controller'],
-        output='screen')
 
 
     return launch.LaunchDescription([
@@ -97,20 +81,15 @@ launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_p
         spawn_entity,
         robot_localization_node,
 
+        Node(
+            package='gillou',
+            namespace='',
+            executable='pelle.py',
+            name='pelle_cmd',
 
-        
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=spawn_entity,
-                on_exit=[load_joint_state_controller],
-            )
         ),
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=load_joint_state_controller,
-                on_exit=[load_joint_trajectory_controller],
-            )
-        )
+        
+        
      
     ])
 

@@ -57,6 +57,10 @@ install(PROGRAMS
     DESTINATION lib/${PROJECT_NAME}/
 )
 
+install(PROGRAMS
+    scripts/pelle.py
+    DESTINATION lib/${PROJECT_NAME}/
+)
 
 
 if(BUILD_TESTING)
