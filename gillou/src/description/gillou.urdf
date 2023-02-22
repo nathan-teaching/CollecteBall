@@ -96,20 +96,14 @@
 
   <link name="base_link">
     <visual>
-      <origin rpy="0 0 3.14" xyz="0 0 -0.14"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <!-- <box size="${base_length} ${base_width} ${base_height}" /> -->
-        <!-- <mesh filename="file://$(find gillou)/description_inventor/robot.dae" /> -->
-        <!-- <mesh filename="//robot.dae" /> -->
-        <!-- <mesh>
-          <uri>file://robot.dae</uri>
-        </mesh> -->
-        <mesh filename="file://$(find gillou)/src/description/description_inventor/robot.dae" scale="0.01 0.01 0.01 " />
-        <!-- <scale>0.2 0.2 0.2</scale> -->
+        <!--<box size="${base_length} ${base_width} ${base_height}"/>-->
+        <mesh filename="package://gillou/description_inventor/robot.dae"/>
       </geometry>
-      <!-- <material name="Cyan">
-        <color rgba="0 1.0 1.0 1.0" />
-      </material> -->
+   <!--   <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>-->
     </visual>
     <collision>
       <geometry>
@@ -215,11 +209,12 @@
   <link name="first_hook_link">
     <visual>
       <geometry>
-        <cylinder radius="${hook_radius}" length="${hook_width}" />
+       <!--<cylinder radius="${hook_radius}" length="${hook_width}"/>-->
+       <mesh filename="package://gillou/description_inventor/pelle.dae"/>
       </geometry>
-      <material name="Cyan">
-        <color rgba="0 1.0 1.0 1.0" />
-      </material>
+    <!--  <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material> -->
     </visual>
     <collision>
       <geometry>
