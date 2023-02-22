@@ -9,8 +9,6 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 
 
-
-
 class MinimalSubscriber(Node):
 
     def __init__(self):
@@ -40,7 +38,8 @@ class MinimalSubscriber(Node):
             current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB)
 
             hsv = cv2.cvtColor(current_frame, cv2.COLOR_RGB2HSV)
-            # on effectue un masque avec les valeurs ci-dessous recuperee sur internet
+            # on effectue un masque avec les valeurs ci-dessous
+            #  recuperees sur internet
             # pour ne garder que les lignes jaunes
             lower = np.array([100, 60, 150], dtype=np.uint8)
             upper = np.array([200, 90, 255], dtype=np.uint8)
