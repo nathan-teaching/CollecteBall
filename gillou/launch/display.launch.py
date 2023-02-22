@@ -65,7 +65,7 @@ def generate_launch_description():
 
 
     return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
+launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
                                                 description='Absolute path to robot urdf file'),
 
         # launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s',
@@ -80,15 +80,16 @@ def generate_launch_description():
         robot_state_publisher_node,
         spawn_entity,
         robot_localization_node,
+
         Node(
             package='gillou',
             namespace='',
             executable='pelle.py',
             name='pelle_cmd',
+
         ),
         
         
      
-      
     ])
 
